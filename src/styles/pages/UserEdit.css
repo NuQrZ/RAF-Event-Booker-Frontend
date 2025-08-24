@@ -1,0 +1,3 @@
+.edit-form { display: grid; gap: 12px; max-width: 520px; }
+.edit-two-cols { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.edit-form .fui-Input, .edit-form .fui-Input input { width: 100%; }

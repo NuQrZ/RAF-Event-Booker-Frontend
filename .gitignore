@@ -1,0 +1,24 @@
+# dependencies
+node_modules
+/.pnp
+.pnp.js
+
+/coverage
+
+dist
+
+.DS_Store
+.env
+.env.local
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+.idea
+.vscode
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?

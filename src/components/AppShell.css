@@ -1,0 +1,16 @@
+.app-container {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+.app-gradient {
+  background: linear-gradient(135deg, rgba(33, 150, 243, 0.18), rgba(156, 39, 176, 0.18), rgba(255, 255, 255, 0.7));
+  background-size: 200% 200%;
+  animation: gradientShift 12s ease infinite;
+}
+@keyframes gradientShift { 0%{background-position:0% 50%} 50%{background-position:100% 50%} 100%{background-position:0% 50%} }
+.main-content { max-width: 1400px; width: 100%; margin: 0 auto; padding: 28px; }
+.toolbar-spacer { flex: 1; }
+/* Profile area — horizontal layout and spacing */
+.profile-area { display: flex; align-items: center; gap: 12px; padding: 6px 12px; border-radius: 999px; background: rgba(255,255,255,0.6); backdrop-filter: blur(6px); border: 1px solid rgba(0,0,0,0.06); }
+.profile-name { font-weight: 600; margin-right: 8px; }

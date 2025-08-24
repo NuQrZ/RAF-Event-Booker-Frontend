@@ -1,0 +1,8 @@
+.users-header-actions { display: flex; align-items: center; gap: 12px; margin-bottom: 12px; justify-content: space-between; }
+.users-table-actions { display: flex; align-items: center; gap: 8px; }
+.full-width-table { width: 100%; overflow-x: auto; }
+.full-width-table table { width: 100%; }
+.status-pill { padding: 2px 8px; border-radius: 999px; font-size: 12px; }
+.status-ACTIVE { background: #e6f4ea; }
+.status-INACTIVE { background: #fdecea; }
+.pager { display: flex; justify-content: center; margin-top: 12px; gap: 8px; }
