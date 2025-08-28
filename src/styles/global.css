@@ -1,12 +1,15 @@
-/* Base layout */
-html, body, #root { height: 100%; }
-body { margin: 0; }
-
-/* Cascadia Mono font stack */
-:root {
-  --mono-font: 'Cascadia Mono', 'Cascadia Code', ui-monospace, SFMono-Regular,
-               Menlo, Consolas, 'Liberation Mono', monospace;
+html, body, #root {
+    height: 100%;
 }
 
-/* Utility for monospace text */
-.mono { font-family: var(--mono-font); }
+body {
+    margin: 0;
+}
+
+:root {
+    --mono-font: 'Cascadia Mono', 'Cascadia Code', ui-monospace, SFMono-Regular, Menlo, Consolas, 'Liberation Mono', monospace;
+}
+
+.mono {
+    font-family: var(--mono-font);
+}

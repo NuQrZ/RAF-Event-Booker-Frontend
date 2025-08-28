@@ -1,2 +1,300 @@
-.home-actions { display: flex; gap: 12px; margin-top: 16px; }
-.find-form { display: grid; grid-template-columns: max-content 1fr max-content; align-items: center; gap: 12px; }
+/* ====== Layout za Home ====== */
+.home-shell {
+  display: grid;
+  gap: 16px;
+}
+
+.home-actions {
+  display: flex;
+  gap: 10px;
+}
+
+.home-card {
+  border-radius: 16px;
+}
+
+/* ====== Search form (Win11 Fluent stil) ====== */
+.find-form {
+  display: grid;
+  grid-template-columns: 1fr auto; /* input levo, dugme desno */
+  gap: 12px;
+  align-items: end;
+  max-width: 720px;
+  margin-top: 6px;
+}
+
+.find-form label {
+  grid-column: 1 / -1;
+  margin-bottom: 4px;
+  font-weight: 600;
+  color: #333;
+}
+
+/* Input */
+.find-form .fui-Input {
+  width: 100%;
+  height: 42px;
+  border-radius: 12px !important;
+  border: 1px solid #e6e6f0 !important;
+  background: #fff !important;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, .06);
+  transition: box-shadow .15s ease, border-color .15s ease, transform .06s ease;
+  font-size: 16px;
+}
+.find-form .fui-Input:focus-within,
+.find-form .fui-Input:focus {
+  border-color: #b7c7ff !important;
+  box-shadow: 0 10px 24px rgba(35,76,219,.18), 0 0 0 3px rgba(102,132,255,.18);
+}
+
+/* Button */
+.find-form .fui-Button {
+  height: 42px !important;
+  border-radius: 12px !important;
+  padding: 0 18px !important;
+  font-weight: 600 !important;
+  box-shadow: 0 8px 18px rgba(27,64,218,.20);
+  transition: transform .06s ease, box-shadow .15s ease, filter .15s ease;
+}
+.find-form .fui-Button:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 14px 28px rgba(27,64,218,.25);
+  filter: brightness(1.02);
+}
+.find-form .fui-Button:active {
+  transform: translateY(0);
+  box-shadow: 0 6px 14px rgba(27,64,218,.18);
+}
+
+/* ====== Rezultati / Tabela ====== */
+.home-results { margin-top: 10px; }
+
+.users-gridwrap {
+  width: 100%;
+  border-radius: 16px;
+  overflow-x: auto;
+  border: 1px solid #e9e9ef;
+  background: #fff;
+  box-shadow: 0 10px 30px rgba(0,0,0,.06);
+}
+
+.users-grid { padding: 8px; }
+
+/* Tabela – poravnata kao u SSMS */
+.users-grid .fui-Table {
+  width: 100%;
+  border-collapse: collapse;
+  table-layout: fixed;         /* header i body dele iste širine */
+  font-size: 17px;             /* možeš podići na 18px */
+  line-height: 1.55;
+}
+
+/* Sve ćelije i header ćelije */
+.users-grid .fui-TableHeaderCell,
+.users-grid .fui-TableCell {
+  text-align: left !important;
+  justify-content: flex-start !important;
+  align-items: center !important;
+  padding: 8px 10px;
+  white-space: nowrap;
+}
+
+/* Slepljene kolone */
+.users-grid .fui-TableHeaderCell:not(:first-of-type),
+.users-grid .fui-TableCell:not(:first-of-type) {
+  padding-left: 0;
+}
+
+/* Širine kolona */
+:root {
+  --w-id: 64px;
+  --w-email: 36%;
+  --w-name: 24%;
+  --w-role: 10%;
+  --w-status: 12%;
+  --w-actions: 14%;
+}
+
+/* ID */
+.users-grid .fui-TableHeaderRow > .fui-TableHeaderCell:nth-of-type(1),
+.users-grid .fui-TableRow        > .fui-TableCell:nth-of-type(1) {
+  width: var(--w-id);
+  text-align: right !important;     /* ID desno kao u SSMS */
+  padding-right: 12px;
+  font-variant-numeric: tabular-nums;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+}
+
+/* Email */
+.users-grid .fui-TableHeaderRow > .fui-TableHeaderCell:nth-of-type(2),
+.users-grid .fui-TableRow        > .fui-TableCell:nth-of-type(2) {
+  width: var(--w-email);
+}
+
+/* Name */
+.users-grid .fui-TableHeaderRow > .fui-TableHeaderCell:nth-of-type(3),
+.users-grid .fui-TableRow        > .fui-TableCell:nth-of-type(3) {
+  width: var(--w-name);
+}
+
+/* Role */
+.users-grid .fui-TableHeaderRow > .fui-TableHeaderCell:nth-of-type(4),
+.users-grid .fui-TableRow        > .fui-TableCell:nth-of-type(4) {
+  width: var(--w-role);
+}
+
+/* Status */
+.users-grid .fui-TableHeaderRow > .fui-TableHeaderCell:nth-of-type(5),
+.users-grid .fui-TableRow        > .fui-TableCell:nth-of-type(5) {
+  width: var(--w-status);
+}
+
+/* Actions */
+.users-grid .fui-TableHeaderRow > .fui-TableHeaderCell:nth-of-type(6),
+.users-grid .fui-TableRow        > .fui-TableCell:nth-of-type(6) {
+  width: var(--w-actions);
+}
+
+/* Header stil */
+.row--header .fui-TableHeaderCell {
+  font-weight: 700;
+  color: #3b3b3b;
+  background: #f7f8ff;
+  border-bottom: 1px solid #eef0f7;
+}
+
+/* Hover red */
+.row--card:hover { background: #f8faff; }
+
+/* Sakrij selection/radio kolonu */
+.users-grid .fui-TableSelectionCell {
+  display: none !important;
+  width: 0 !important;
+  padding: 0 !important;
+  border: 0 !important;
+}
+
+/* Poništi 'selected' pozadinu reda */
+.users-grid .fui-TableRow[aria-selected="true"] {
+  background: transparent !important;
+}
+
+/* Helperi */
+.cell { padding-block: 8px; }
+
+.cell-email,
+.cell-name {
+  display: inline-block;
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.results-caption {
+  display: block;
+  padding: 8px 2px 2px;
+  color: #666;
+}
+
+/* Pill badge */
+.pill {
+  display: inline-block;
+  padding: 4px 10px;
+  border-radius: 999px;
+  font-size: 12px;
+  border: 1px solid #e6e6f2;
+  background: #f6f7fb;
+}
+.pill-ok   { background: #e8f6ee; border-color: #cfe9d7; color: #24653e; }
+.pill-warn { background: #fdecea; border-color: #f7c7c2; color: #7a271a; }
+.pill-role { background: #eef2ff; border-color: #dfe6ff; color: #2c3a8c; }
+
+/* === Windows 11 Fluent style for the Details button === */
+.details-btn {
+  height: 36px !important;
+  border-radius: 12px !important;
+  padding: 0 14px !important;
+  font-weight: 600 !important;
+  background: #fff !important;
+  border: 1px solid #e6e6f2 !important;
+  box-shadow: 0 6px 14px rgba(0,0,0,.06);
+  transition: transform .06s ease,
+              box-shadow .15s ease,
+              background-color .15s ease,
+              border-color .15s ease;
+}
+
+.details-btn:hover {
+  transform: translateY(-1px);
+  background: #f7f9ff !important;
+  border-color: #cfd8ff !important;
+  box-shadow: 0 12px 22px rgba(35,76,219,.14);
+}
+
+.details-btn:active {
+  transform: translateY(0);
+  box-shadow: 0 4px 12px rgba(0,0,0,.08);
+}
+
+.details-btn:focus-visible {
+  outline: none;
+  border-color: #b7c7ff !important;
+  box-shadow:
+    0 0 0 3px rgba(102,132,255,.28),
+    0 10px 24px rgba(35,76,219,.16);
+}
+
+/* (optional) tiny visual polish for the icon */
+.details-btn .fui-Button__icon {
+  margin-right: 6px;
+}
+
+/* === Win11 Fluent buttons via classes === */
+.action-btn {
+  height: 38px !important;
+  border-radius: 12px !important;
+  padding: 0 14px !important;
+  font-weight: 600 !important;
+  transition: transform .06s ease, box-shadow .15s ease, filter .15s ease, background-color .15s ease, border-color .15s ease;
+}
+
+/* Primary pill */
+.action-primary {
+  box-shadow: 0 8px 18px rgba(27,64,218,.20);
+}
+.action-primary:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 14px 28px rgba(27,64,218,.25);
+  filter: brightness(1.02);
+}
+.action-primary:active {
+  transform: translateY(0);
+  box-shadow: 0 6px 14px rgba(27,64,218,.18);
+}
+.action-primary:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(102,132,255,.28), 0 10px 24px rgba(35,76,219,.16);
+}
+
+/* Ghost/subtle pill */
+.action-ghost {
+  background: #fff !important;
+  border: 1px solid #e6e6f2 !important;
+  box-shadow: 0 6px 14px rgba(0,0,0,.06);
+}
+.action-ghost:hover {
+  transform: translateY(-1px);
+  background: #f7f9ff !important;
+  border-color: #cfd8ff !important;
+  box-shadow: 0 12px 22px rgba(35,76,219,.14);
+}
+.action-ghost:active {
+  transform: translateY(0);
+  box-shadow: 0 4px 12px rgba(0,0,0,.08);
+}
+.action-ghost:focus-visible {
+  outline: none;
+  border-color: #b7c7ff !important;
+  box-shadow: 0 0 0 3px rgba(102,132,255,.28), 0 10px 24px rgba(35,76,219,.12);
+}

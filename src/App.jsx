@@ -13,20 +13,20 @@ import NoAccess from './pages/NoAccess'
 import { useAuth } from './context/AuthContext'
 
 export default function App() {
-  return (
-    <AuthProvider>
-      <Routes>
-        <Route path="/login" element={<Login />} />
-        <Route element={<ProtectedRoute><AppShell /></ProtectedRoute>}>
-          <Route index element={<Home />} />
-          <Route path="/users" element={<UsersList />} />
-          <Route path="/users/create" element={<CreateUser />} />
-          <Route path="/users/:userID" element={<UserDetails />} />
-          <Route path="/users/:userID/edit" element={<UserEdit />} />
-          <Route path="/no-access" element={<NoAccess />} />
-        </Route>
-        <Route path="*" element={<Navigate to="/" replace />} />
-      </Routes>
-    </AuthProvider>
-  )
+    return (
+        <AuthProvider>
+            <Routes>
+                <Route path="/login" element={<Login />} />
+                <Route element={<ProtectedRoute><AppShell /></ProtectedRoute>}>
+                    <Route index element={<Home />} />
+                    <Route path="/ems/users" element={<UsersList />} />
+                    <Route path="/ems/users/create" element={<CreateUser />} />
+                    <Route path="/ems/users/:userID" element={<UserDetails />} />
+                    <Route path="/ems/users/:userID/edit" element={<UserEdit />} />
+                    <Route path="/no-access" element={<NoAccess />} />
+                </Route>
+                <Route path="*" element={<Navigate to="/" replace />} />
+            </Routes>
+        </AuthProvider>
+    )
 }

@@ -17,7 +17,7 @@ export default function UsersList() {
 
   const load = async (pg=pageParam, sz=sizeParam) => {
     setLoading(true); setErr('')
-    try { const { data } = await api(`/users?page=${pg}&size=${sz}`); setPage(data) }
+    try { const { data } = await api(`/ems/users?page=${pg}&size=${sz}`); setPage(data) }
     catch (e) { setErr(e.message) }
     finally { setLoading(false) }
   }
@@ -36,7 +36,7 @@ export default function UsersList() {
         <Title2>Users</Title2>
         {/* Only admins see this */}
         {profile?.role === 'ADMIN' && (
-          <Button appearance="primary" onClick={() => nav('/users/create')}>Create</Button>
+          <Button appearance="primary" onClick={() => nav('/ems/users/create')}>Create</Button>
         )}
       </div>
 
@@ -64,8 +64,8 @@ export default function UsersList() {
                   <TableCell><span className={`status-pill status-${u.userStatus}`}>{u.userStatus}</span></TableCell>
                   <TableCell>
                     <div className="users-table-actions">
-                      <Button size="small" onClick={() => nav(`/users/${u.userID}`)}>Details</Button>
-                      <Button size="small" onClick={() => nav(`/users/${u.userID}/edit`)}>Edit</Button>
+                      <Button size="small" onClick={() => nav(`/ems/users/${u.userID}`)}>Details</Button>
+                      <Button size="small" onClick={() => nav(`/ems/users/${u.userID}/edit`)}>Edit</Button>
                     </div>
                   </TableCell>
                 </TableRow>

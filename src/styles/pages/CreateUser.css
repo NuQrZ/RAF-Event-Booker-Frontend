@@ -1,34 +1,43 @@
-/* Create User polish */
-.create-card {
-  margin-top: 16px;
-  padding: 20px;
-  border-radius: 16px;
-  box-shadow: 0 6px 24px rgba(0,0,0,0.06);
+.pageWrap {
+    display: grid;
+    gap: 12px;
 }
 
-.create-form {
-  display: grid;
-  gap: 14px;
-  max-width: 720px;
+.createCard {
+    margin-top: 8px;
+    padding: 20px;
+    border-radius: 16px;
+    box-shadow: 0 8px 28px rgba(0,0,0,.06);
 }
 
-.create-two-cols {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 14px;
+.createForm {
+    display: grid;
+    gap: 14px;
+    max-width: 760px;
 }
 
-.create-form .fui-Input,
-.create-form .fui-Input input {
-  width: 100%;
+.createTwoCols {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
 }
 
-.create-form .fui-Dropdown {
-  width: 100%;
+.formActions {
+    display: flex;
+    gap: 10px;
+    margin-top: 4px;
 }
 
-.form-section-title {
-  font-weight: 600;
-  opacity: .8;
-  margin-top: 8px;
+.errorText {
+    color: crimson;
+}
+
+.createForm .fuiInput, .createForm .fuiInput input, .createForm .fuiDropdown {
+    width: 100%;
+}
+
+@media (max-width: 720px) {
+    .createTwoCols {
+        grid-template-columns: 1fr;
+    }
 }

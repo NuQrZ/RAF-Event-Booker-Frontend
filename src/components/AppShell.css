@@ -1,16 +1,148 @@
+/* ===== App layout ===== */
 .app-container {
   min-height: 100vh;
   display: flex;
   flex-direction: column;
 }
+
 .app-gradient {
-  background: linear-gradient(135deg, rgba(33, 150, 243, 0.18), rgba(156, 39, 176, 0.18), rgba(255, 255, 255, 0.7));
+  background: linear-gradient(
+    135deg,
+    rgba(33, 150, 243, 0.18),
+    rgba(156, 39, 176, 0.18),
+    rgba(255, 255, 255, 0.72)
+  );
   background-size: 200% 200%;
   animation: gradientShift 12s ease infinite;
 }
-@keyframes gradientShift { 0%{background-position:0% 50%} 50%{background-position:100% 50%} 100%{background-position:0% 50%} }
-.main-content { max-width: 1400px; width: 100%; margin: 0 auto; padding: 28px; }
+@keyframes gradientShift {
+  0% { background-position: 0% 50% }
+  50% { background-position: 100% 50% }
+  100% { background-position: 0% 50% }
+}
+
+.main-content {
+  max-width: 1400px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 28px;
+}
+
 .toolbar-spacer { flex: 1; }
-/* Profile area — horizontal layout and spacing */
-.profile-area { display: flex; align-items: center; gap: 12px; padding: 6px 12px; border-radius: 999px; background: rgba(255,255,255,0.6); backdrop-filter: blur(6px); border: 1px solid rgba(0,0,0,0.06); }
-.profile-name { font-weight: 600; margin-right: 8px; }
+
+/* ===== Header / Toolbar ===== */
+.app-toolbar {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  gap: 8px;
+  padding: 10px 16px !important;
+  backdrop-filter: saturate(160%) blur(10px);
+  -webkit-backdrop-filter: saturate(160%) blur(10px);
+  background: rgba(255, 255, 255, 0.55) !important;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.06);
+}
+
+/* Divider between profile and logout */
+.toolbar-divider {
+  margin: 0 12px !important;
+  border-color: rgba(0, 0, 0, 0.08) !important;
+}
+
+/* ===== Toolbar buttons (nav) ===== */
+.nav-btn {
+  height: 36px !important;
+  border-radius: 12px !important;
+  padding: 0 12px !important;
+  font-weight: 600 !important;
+  color: #222 !important; /* dark text by default */
+  transition:
+    transform .06s ease,
+    box-shadow .15s ease,
+    background-color .15s ease,
+    border-color .15s ease,
+    filter .15s ease;
+}
+
+/* Subtle/ghost look */
+.nav-btn:not(.primary-btn) {
+  background: rgba(255, 255, 255, 0.75) !important;
+  border: 1px solid rgba(0, 0, 0, 0.06) !important;
+  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.06);
+}
+.nav-btn:not(.primary-btn):hover {
+  transform: translateY(-1px);
+  background: rgba(247, 249, 255, 0.95) !important;
+  border-color: #cfd8ff !important;
+  box-shadow: 0 12px 22px rgba(35, 76, 219, 0.14);
+}
+.nav-btn:not(.primary-btn):active {
+  transform: translateY(0);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+/* ===== Active/primary nav button (blue pill) ===== */
+.primary-btn {
+  background-color: #0f6cbd !important; /* Fluent brand blue */
+  color: #fff !important;
+  border: none !important;
+  box-shadow: 0 8px 18px rgba(27, 64, 218, 0.2);
+}
+.primary-btn:hover {
+  transform: translateY(-1px);
+  background-color: #115ea3 !important;
+  box-shadow: 0 14px 28px rgba(27, 64, 218, 0.25);
+  filter: brightness(1.02);
+}
+.primary-btn:active {
+  transform: translateY(0);
+  background-color: #0d5c9e !important;
+  box-shadow: 0 6px 14px rgba(27, 64, 218, 0.18);
+}
+.primary-btn:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(102, 132, 255, 0.28),
+              0 10px 24px rgba(35, 76, 219, 0.16);
+}
+
+/* Logout button – ghost but with danger accent */
+.ghost-danger {
+  background: rgba(255, 255, 255, 0.8) !important;
+  border: 1px solid rgba(255, 0, 0, 0.08) !important;
+}
+.ghost-danger:hover {
+  border-color: rgba(255, 0, 0, 0.18) !important;
+  box-shadow: 0 12px 22px rgba(255, 0, 0, 0.12);
+}
+
+/* Icon spacing inside nav buttons */
+.fui-ToolbarButton__icon { margin-right: 6px; }
+
+/* ===== Profile chip ===== */
+.profile-chip {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 6px 12px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.8);
+  border: 1px solid rgba(0, 0, 0, 0.06);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.6),
+              0 6px 18px rgba(0, 0, 0, 0.06);
+}
+.profile-name { font-weight: 600; }
+
+/* Badge polish inside profile chip */
+.profile-chip .fui-Badge {
+  border-radius: 999px !important;
+  padding: 2px 8px !important;
+  font-weight: 700 !important;
+}
+
+/* ===== Responsive ===== */
+@media (max-width: 720px) {
+  .app-toolbar { padding: 8px 10px !important; }
+  .nav-btn { padding: 0 10px !important; }
+  .profile-name { display: none; } /* compact on small screens */
+}

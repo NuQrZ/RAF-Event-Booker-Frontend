@@ -1,78 +1,167 @@
-import React, { useEffect, useState } from 'react'
-import { useNavigate, useParams } from 'react-router-dom'
-import { api } from '../utils/api'
-import { Title2, Button, Input, Label, Dropdown, Option, Text } from '@fluentui/react-components'
-import '../styles/pages/UserEdit.css'
+import React, { useEffect, useState } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
+import { api } from '../utils/api';
+import {
+  Title2,
+  Button,
+  Input,
+  Dropdown,
+  Option,
+  Text,
+  Card,
+  Field,
+  Divider
+} from '@fluentui/react-components';
+import { Save24Regular, Dismiss24Regular } from '@fluentui/react-icons';
+import '../styles/pages/UserEdit.css';
 
-const roles = ['ADMIN', 'EVENT_CREATOR']
-const statuses = ['ACTIVE', 'INACTIVE']
+/* Include USER since backend may return it; prevents blank selection */
+const roles = ['ADMIN', 'EVENT_CREATOR', 'USER'];
+const statuses = ['ACTIVE', 'INACTIVE'];
 
 export default function UserEdit() {
-  const { userID } = useParams()
-  const nav = useNavigate()
-  const [form, setForm] = useState(null)
-  const [err, setErr] = useState('')
+  const { userID } = useParams();
+  const nav = useNavigate();
+  const [form, setForm] = useState(null);
+  const [err, setErr] = useState('');
+  const [saving, setSaving] = useState(false);
 
-  const set = (k, v) => setForm(prev => ({ ...prev, [k]: v }))
+  const set = (k, v) => setForm(prev => ({ ...prev, [k]: v }));
 
   useEffect(() => {
     (async () => {
       try {
-        const { data } = await api(`/users/${userID}`)
-        setForm({ email: data.email, firstName: data.firstName, lastName: data.lastName, password: '', userRole: data.userRole, userStatus: data.userStatus })
-      } catch (e) { setErr(e.message) }
-    })()
-  }, [userID])
+        const { data } = await api(`/ems/users/${userID}`);
+        setForm({
+          email: data.email ?? '',
+          firstName: data.firstName ?? '',
+          lastName: data.lastName ?? '',
+          password: '',
+          userRole: data.userRole ?? 'ADMIN',   // must be a valid option
+          userStatus: data.userStatus ?? 'ACTIVE',
+        });
+      } catch (e) {
+        setErr(String(e.message || e));
+      }
+    })();
+  }, [userID]);
 
-  const submit = async (e) => {
-    e.preventDefault()
-    setErr('')
+  const onSubmit = async (e) => {
+    e.preventDefault();
     try {
-      const body = { ...form }
-      if (!body.password) delete body.password
-      await api(`/users/${userID}`, { method: 'PUT', body })
-      nav(`/users/${userID}`)
-    } catch (e) { setErr(e.message) }
+      setSaving(true);
+      const body = { ...form };
+      if (!body.password) delete body.password;
+      await api(`/ems/users/${userID}`, { method: 'PUT', body });
+      nav(`/ems/users/${userID}`);
+    } catch (e) {
+      setErr(String(e.message || e));
+    } finally {
+      setSaving(false);
+    }
+  };
+
+  if (!form) {
+    return (
+      <div className="pageWrap">
+        <Title2>Edit user</Title2>
+        <Text>Loading…</Text>
+      </div>
+    );
   }
 
-  if (!form) return <Text>Loading...</Text>
-
   return (
-    <div>
-      <Title2>Edit User</Title2>
-      {err && <Text style={{ color: 'crimson' }}>{err}</Text>}
-      <form className="edit-form" onSubmit={submit}>
-        <div>
-          <Label>Email</Label>
-          <Input type="email" value={form.email} onChange={(e,d)=>set('email', d.value)} required/>
-        </div>
-        <div className="edit-two-cols">
-          <div><Label>First name</Label><Input value={form.firstName} onChange={(e,d)=>set('firstName', d.value)} required/></div>
-          <div><Label>Last name</Label><Input value={form.lastName} onChange={(e,d)=>set('lastName', d.value)} required/></div>
-        </div>
-        <div>
-          <Label>New password (optional)</Label>
-          <Input type="password" value={form.password} onChange={(e,d)=>set('password', d.value)} placeholder="Leave blank to keep unchanged"/>
-        </div>
-        <div className="edit-two-cols">
-          <div>
-            <Label>Role</Label>
-            <Dropdown selectedOptions={[form.userRole]} onOptionSelect={(e,d)=>set('userRole', d.optionValue)}>
-              {roles.map(r => <Option key={r} value={r}>{r}</Option>)}
-            </Dropdown>
+    <div className="pageWrap">
+      <Title2>Edit user</Title2>
+      <Card className="editCard">
+        <form onSubmit={onSubmit} className="editForm">
+          <div className="editTwoCols">
+            <Field label="First name" required>
+              <Input
+                value={form.firstName}
+                onChange={(e, d) => set('firstName', d.value)}
+                required
+              />
+            </Field>
+            <Field label="Last name" required>
+              <Input
+                value={form.lastName}
+                onChange={(e, d) => set('lastName', d.value)}
+                required
+              />
+            </Field>
           </div>
-          <div>
-            <Label>Status</Label>
-            <Dropdown selectedOptions={[form.userStatus]} onOptionSelect={(e,d)=>set('userStatus', d.optionValue)}>
-              {statuses.map(s => <Option key={s} value={s}>{s}</Option>)}
-            </Dropdown>
+
+          <Field label="Email" required>
+            <Input
+              type="email"
+              value={form.email}
+              onChange={(e, d) => set('email', d.value)}
+              required
+            />
+          </Field>
+
+          <Divider />
+
+          <Field
+            label="New password (optional)"
+            hint="Leave blank to keep the current password."
+          >
+            <Input
+              type="password"
+              value={form.password}
+              onChange={(e, d) => set('password', d.value)}
+            />
+          </Field>
+
+          <div className="editTwoCols">
+            <Field label="Role" required>
+              <Dropdown
+                multiselect={false}
+                selectedOptions={[form.userRole]}
+                onOptionSelect={(e, d) => {
+                  const next = d.selectedOptions?.[0] ?? form.userRole;
+                  set('userRole', next);
+                }}
+              >
+                {roles.map((r) => (
+                  <Option key={r} value={r}>
+                    {r}
+                  </Option>
+                ))}
+              </Dropdown>
+            </Field>
+
+            <Field label="Status" required>
+              <Dropdown
+                multiselect={false}
+                selectedOptions={[form.userStatus]}
+                onOptionSelect={(e, d) => {
+                  const next = d.selectedOptions?.[0] ?? form.userStatus;
+                  set('userStatus', next);
+                }}
+              >
+                {statuses.map((s) => (
+                  <Option key={s} value={s}>
+                    {s}
+                  </Option>
+                ))}
+              </Dropdown>
+            </Field>
           </div>
-        </div>
-        <div style={{ display: 'flex', gap: 8 }}>
-          <Button appearance="primary" type="submit">Save</Button>
-          <Button onClick={() => nav(-1)}>Cancel</Button>
-        </div>
-      </form>
+
+          {err && <Text className="errorText">{err}</Text>}
+
+          <div className="formActions">
+            <Button icon={<Save24Regular />} appearance="primary" type="submit" disabled={saving}>
+              {saving ? 'Saving…' : 'Save changes'}
+            </Button>
+            <Button icon={<Dismiss24Regular />} onClick={() => nav(-1)}>
+              Cancel
+            </Button>
+          </div>
+        </form>
+      </Card>
     </div>
-  )
+  );
 }

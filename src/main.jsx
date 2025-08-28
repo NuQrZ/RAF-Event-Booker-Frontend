@@ -8,11 +8,11 @@ import './styles/global.css'
 const theme = { ...webLightTheme }
 
 ReactDOM.createRoot(document.getElementById('root')).render(
-  <React.StrictMode>
-    <FluentProvider theme={theme}>
-      <BrowserRouter>
-        <App />
-      </BrowserRouter>
-    </FluentProvider>
-  </React.StrictMode>
+    <React.StrictMode>
+        <FluentProvider theme={theme}>
+            <BrowserRouter>
+                <App />
+            </BrowserRouter>
+        </FluentProvider>
+    </React.StrictMode>
 )
