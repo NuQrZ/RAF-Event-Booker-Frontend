@@ -5,7 +5,7 @@ import {
   Title2,
   Button,
   Input,
-  Dropdown,
+  Combobox,
   Option,
   Text,
   Card,
@@ -20,14 +20,16 @@ const statuses = ['ACTIVE', 'INACTIVE'];
 
 export default function CreateUser() {
   const nav = useNavigate();
+
   const [form, setForm] = useState({
     email: '',
     firstName: '',
     lastName: '',
     password: '',
-    userRole: roles[1],     // default EVENT_CREATOR
-    userStatus: statuses[0] // default ACTIVE
+    userRole: roles[1],
+    userStatus: statuses[0]
   });
+
   const [saving, setSaving] = useState(false);
   const [err, setErr] = useState('');
 
@@ -49,8 +51,10 @@ export default function CreateUser() {
   return (
     <div className="pageWrap">
       <Title2>Create user</Title2>
+
       <Card className="createCard">
         <form onSubmit={onSubmit} className="createForm">
+
           <div className="createTwoCols">
             <Field label="First name" required>
               <Input
@@ -59,6 +63,7 @@ export default function CreateUser() {
                 required
               />
             </Field>
+
             <Field label="Last name" required>
               <Input
                 value={form.lastName}
@@ -77,9 +82,9 @@ export default function CreateUser() {
             />
           </Field>
 
-          <Divider />
+          <Divider className="softDivider" />
 
-          <Field label="Password" required>
+          <Field label="Password" required hint="Minimum 8 characters.">
             <Input
               type="password"
               value={form.password}
@@ -90,43 +95,39 @@ export default function CreateUser() {
 
           <div className="createTwoCols">
             <Field label="Role" required>
-              <Dropdown
+              <Combobox
                 selectedOptions={[form.userRole]}
-                onOptionSelect={(e, d) =>
-                  set('userRole', d.optionValue ?? form.userRole)
-                }
+                value={form.userRole}
+                displayValue={form.userRole}
+                onChange={(e, data) => set('userRole', data.value ?? '')}
+                onOptionSelect={(e, data) => set('userRole', data.optionValue ?? '')}
+                placeholder="Select role"
               >
-                {roles.map((r) => (
-                  <Option key={r} value={r}>
-                    {r}
-                  </Option>
-                ))}
-              </Dropdown>
+                {roles.map(r => <Option key={r} value={r}>{r}</Option>)}
+              </Combobox>
             </Field>
 
             <Field label="Status" required>
-              <Dropdown
+              <Combobox
                 selectedOptions={[form.userStatus]}
-                onOptionSelect={(e, d) =>
-                  set('userStatus', d.optionValue ?? form.userStatus)
-                }
+                value={form.userStatus}
+                displayValue={form.userStatus}
+                onChange={(e, data) => set('userStatus', data.value ?? '')}
+                onOptionSelect={(e, data) => set('userStatus', data.optionValue ?? '')}
+                placeholder="Select status"
               >
-                {statuses.map((s) => (
-                  <Option key={s} value={s}>
-                    {s}
-                  </Option>
-                ))}
-              </Dropdown>
+                {statuses.map(s => <Option key={s} value={s}>{s}</Option>)}
+              </Combobox>
             </Field>
           </div>
 
           {err && <Text className="errorText">{err}</Text>}
 
           <div className="formActions">
-            <Button icon={<Add24Regular />} appearance="primary" type="submit" disabled={saving}>
+            <Button className="primary-btn" icon={<Add24Regular />} appearance="primary" type="submit" disabled={saving}>
               {saving ? 'Creating…' : 'Create'}
             </Button>
-            <Button icon={<Dismiss24Regular />} onClick={() => nav(-1)}>
+            <Button className="ghost-btn" icon={<Dismiss24Regular />} onClick={() => nav(-1)}>
               Cancel
             </Button>
           </div>

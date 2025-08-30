@@ -1,0 +1,184 @@
+.w11-pageShell {
+    max-width: 1120px;
+    margin: 0 auto;
+    padding: 24px 20px;
+    display: grid;
+    gap: 16px;
+}
+
+.w11-titleRow {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+
+.w11-title {
+    margin: 0;
+    font-weight: 700;
+    letter-spacing: .2px;
+}
+
+.w11-error {
+    background: #ffecec;
+    border: 1px solid #f5a9a9;
+    padding: 10px 12px;
+    border-radius: 10px;
+}
+
+.w11-card {
+    background: var(--colorNeutralBackground1, #fff);
+    border: 1px solid var(--colorNeutralStroke2, #ececf3);
+    border-radius: 16px;
+    padding: 16px;
+    box-shadow: 0 6px 22px rgba(0, 0, 0, .06);
+}
+
+.w11-grid2 {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+}
+
+@media (max-width: 900px) {
+    .w11-grid2 {
+        grid-template-columns: 1fr;
+    }
+}
+
+.w11-field {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.w11-field .fui-Input {
+    border-radius: 12px !important;
+    border: 1px solid #e6e6f0 !important;
+    background: #fff !important;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, .06);
+    transition: box-shadow .15s ease, border-color .15s ease, transform .06s ease;
+    width: 100%;
+}
+
+.w11-field .fui-Input:focus-within,
+.w11-field .fui-Input:focus {
+    border-color: #b7c7ff !important;
+    box-shadow: 0 10px 24px rgba(35, 76, 219, .18), 0 0 0 3px rgba(102, 132, 255, .18);
+}
+
+.w11-tableWrap {
+    overflow: auto;
+}
+
+.w11-rowActions {
+    display: flex;
+    gap: 10px;
+}
+
+.w11-pager {
+    margin-top: 12px;
+    display: flex;
+    gap: 10px;
+    justify-content: flex-end;
+}
+
+.w11-pageShell .fui-Button {
+    height: 42px !important;
+    border-radius: 12px !important;
+    padding: 0 18px !important;
+    font-weight: 600 !important;
+    border: 1px solid transparent !important;
+    box-shadow: 0 8px 18px rgba(27, 64, 218, .20);
+    transition: transform .06s ease, box-shadow .15s ease, filter .15s ease,
+        background-color .15s ease, border-color .15s ease, color .15s ease;
+}
+
+.w11-pageShell .fui-Button:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 14px 28px rgba(27, 64, 218, .25);
+    filter: brightness(1.02);
+}
+
+.w11-pageShell .fui-Button:active {
+    transform: translateY(0);
+    box-shadow: 0 6px 14px rgba(27, 64, 218, .18);
+}
+
+.w11-pageShell .fui-Button:focus-visible {
+    outline: none;
+    border-color: #b7c7ff !important;
+    box-shadow: 0 0 0 3px rgba(102, 132, 255, .28), 0 10px 24px rgba(35, 76, 219, .16);
+}
+
+.w11-pageShell .w11-btnSecondary {
+    background: #fff !important;
+    color: #111827 !important;
+    border: 1px solid #e6e6f2 !important;
+    box-shadow: 0 6px 14px rgba(0, 0, 0, .06);
+}
+
+.w11-pageShell .w11-btnSecondary:hover {
+    transform: translateY(-1px);
+    background: #f7f9ff !important;
+    border-color: #cfd8ff !important;
+    box-shadow: 0 12px 22px rgba(35, 76, 219, .14);
+}
+
+.w11-pageShell .w11-btnSecondary:active {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, .08);
+}
+
+.action-btn {
+    height: 38px !important;
+    border-radius: 12px !important;
+    padding: 0 14px !important;
+    font-weight: 600 !important;
+    transition: transform .06s ease, box-shadow .15s ease, filter .15s ease,
+        background-color .15s ease, border-color .15s ease;
+}
+
+.action-primary {
+    box-shadow: 0 8px 18px rgba(27, 64, 218, .20);
+}
+
+.action-primary:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 14px 28px rgba(27, 64, 218, .25);
+    filter: brightness(1.02);
+}
+
+.action-primary:active {
+    transform: translateY(0);
+    box-shadow: 0 6px 14px rgba(27, 64, 218, .18);
+}
+
+.action-primary:focus-visible {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(102, 132, 255, .28), 0 10px 24px rgba(35, 76, 219, .16);
+}
+
+.action-ghost {
+    background: #fff !important;
+    border: 1px solid #e6e6f2 !important;
+    box-shadow: 0 6px 14px rgba(0, 0, 0, .06);
+}
+
+.action-ghost:hover {
+    transform: translateY(-1px);
+    background: #f7f9ff !important;
+    border-color: #cfd8ff !important;
+    box-shadow: 0 12px 22px rgba(35, 76, 219, .14);
+}
+
+.action-ghost:active {
+    transform: translateY(0);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, .08);
+}
+
+.action-ghost:focus-visible {
+    outline: none;
+    border-color: #b7c7ff !important;
+    box-shadow: 0 0 0 3px rgba(102, 132, 255, .28), 0 10px 24px rgba(35, 76, 219, .12);
+}

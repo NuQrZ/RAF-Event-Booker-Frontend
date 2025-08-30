@@ -10,23 +10,49 @@ import UserDetails from './pages/UserDetails'
 import UserEdit from './pages/UserEdit'
 import CreateUser from './pages/CreateUser'
 import NoAccess from './pages/NoAccess'
-import { useAuth } from './context/AuthContext'
+
+import Categories from './pages/Categories'
+import Events from './pages/Events'
+import EventForm from './pages/EventsForm'
+import PublicHome from './pages/public/PublicHome'
+import PublicMostViewed from './pages/public/PublicMostViewed'
+import PublicMostReacted from './pages/public/PublicMostReacted'
+import PublicByCategory from './pages/public/PublicByCategory'
+import PublicByTag from './pages/public/PublicByTag'
+import PublicEvent from './pages/public/PublicEvent'
 
 export default function App() {
-    return (
-        <AuthProvider>
-            <Routes>
-                <Route path="/login" element={<Login />} />
-                <Route element={<ProtectedRoute><AppShell /></ProtectedRoute>}>
-                    <Route index element={<Home />} />
-                    <Route path="/ems/users" element={<UsersList />} />
-                    <Route path="/ems/users/create" element={<CreateUser />} />
-                    <Route path="/ems/users/:userID" element={<UserDetails />} />
-                    <Route path="/ems/users/:userID/edit" element={<UserEdit />} />
-                    <Route path="/no-access" element={<NoAccess />} />
-                </Route>
-                <Route path="*" element={<Navigate to="/" replace />} />
-            </Routes>
-        </AuthProvider>
-    )
+  return (
+    <AuthProvider>
+      <Routes>
+        <Route path="/login" element={<Login />} />
+        <Route path="/no-access" element={<NoAccess />} />
+
+        <Route element={<AppShell />}>
+          <Route path="/public/events" element={<PublicHome />} />
+          <Route path="/public/events/latest" element={<PublicHome />} />
+          <Route path="/public/events/most-viewed" element={<PublicMostViewed />} />
+          <Route path="/public/events/most-reacted" element={<PublicMostReacted />} />
+          <Route path="/public/events/by-category/:categoryID" element={<PublicByCategory />} />
+          <Route path="/public/events/by-tag/:tag" element={<PublicByTag />} />
+          <Route path="/public/events/:eventID" element={<PublicEvent />} />
+        </Route>
+
+        <Route element={<ProtectedRoute><AppShell /></ProtectedRoute>}>
+          <Route index element={<Home />} />
+          <Route path="/ems/users" element={<UsersList />} />
+          <Route path="/ems/users/create" element={<CreateUser />} />
+          <Route path="/ems/users/:userID" element={<UserDetails />} />
+          <Route path="/ems/users/:userID/edit" element={<UserEdit />} />
+
+          <Route path="/ems/events" element={<Events />} />
+          <Route path="/ems/events/create" element={<EventForm mode="create" />} />
+          <Route path="/ems/events/:eventID/edit" element={<EventForm mode="edit" />} />
+          <Route path="/ems/categories" element={<Categories />} />
+        </Route>
+
+        <Route path="*" element={<Navigate to="/" replace />} />
+      </Routes>
+    </AuthProvider>
+  )
 }

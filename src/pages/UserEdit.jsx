@@ -5,7 +5,7 @@ import {
   Title2,
   Button,
   Input,
-  Dropdown,
+  Combobox,
   Option,
   Text,
   Card,
@@ -15,8 +15,7 @@ import {
 import { Save24Regular, Dismiss24Regular } from '@fluentui/react-icons';
 import '../styles/pages/UserEdit.css';
 
-/* Include USER since backend may return it; prevents blank selection */
-const roles = ['ADMIN', 'EVENT_CREATOR', 'USER'];
+const roles = ['ADMIN', 'EVENT_CREATOR'];
 const statuses = ['ACTIVE', 'INACTIVE'];
 
 export default function UserEdit() {
@@ -37,8 +36,8 @@ export default function UserEdit() {
           firstName: data.firstName ?? '',
           lastName: data.lastName ?? '',
           password: '',
-          userRole: data.userRole ?? 'ADMIN',   // must be a valid option
-          userStatus: data.userStatus ?? 'ACTIVE',
+          userRole: roles.includes(data.userRole) ? data.userRole : 'ADMIN',
+          userStatus: statuses.includes(data.userStatus) ? data.userStatus : 'ACTIVE',
         });
       } catch (e) {
         setErr(String(e.message || e));
@@ -116,47 +115,47 @@ export default function UserEdit() {
 
           <div className="editTwoCols">
             <Field label="Role" required>
-              <Dropdown
-                multiselect={false}
+              <Combobox
                 selectedOptions={[form.userRole]}
-                onOptionSelect={(e, d) => {
-                  const next = d.selectedOptions?.[0] ?? form.userRole;
-                  set('userRole', next);
-                }}
+                value={form.userRole}
+                displayValue={form.userRole}
+                onChange={(e, data) => set('userRole', data.value ?? '')}
+                onOptionSelect={(e, data) => set('userRole', data.optionValue ?? '')}
+                placeholder="Select role"
               >
                 {roles.map((r) => (
                   <Option key={r} value={r}>
                     {r}
                   </Option>
                 ))}
-              </Dropdown>
+              </Combobox>
             </Field>
 
             <Field label="Status" required>
-              <Dropdown
-                multiselect={false}
+              <Combobox
                 selectedOptions={[form.userStatus]}
-                onOptionSelect={(e, d) => {
-                  const next = d.selectedOptions?.[0] ?? form.userStatus;
-                  set('userStatus', next);
-                }}
+                value={form.userStatus}
+                displayValue={form.userStatus}
+                onChange={(e, data) => set('userStatus', data.value ?? '')}
+                onOptionSelect={(e, data) => set('userStatus', data.optionValue ?? '')}
+                placeholder="Select status"
               >
                 {statuses.map((s) => (
                   <Option key={s} value={s}>
                     {s}
                   </Option>
                 ))}
-              </Dropdown>
+              </Combobox>
             </Field>
           </div>
 
           {err && <Text className="errorText">{err}</Text>}
 
           <div className="formActions">
-            <Button icon={<Save24Regular />} appearance="primary" type="submit" disabled={saving}>
+            <Button className="primary-btn" icon={<Save24Regular />} appearance="primary" type="submit" disabled={saving}>
               {saving ? 'Saving…' : 'Save changes'}
             </Button>
-            <Button icon={<Dismiss24Regular />} onClick={() => nav(-1)}>
+            <Button className="ghost-btn" icon={<Dismiss24Regular />} onClick={() => nav(-1)}>
               Cancel
             </Button>
           </div>

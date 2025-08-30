@@ -1,33 +1,28 @@
-/* ===== Page layout ===== */
 .pageWrap {
   display: grid;
   gap: 16px;
 }
 
-/* ===== Card (Fluent surface) ===== */
 .editCard {
   padding: 22px;
   border-radius: 16px;
   background: #fff;
   border: 1px solid #ececf3;
-  box-shadow: 0 12px 32px rgba(0,0,0,.06);
+  box-shadow: 0 12px 32px rgba(0, 0, 0, .06);
 }
 
-/* ===== Form grid ===== */
 .editForm {
   display: grid;
   gap: 16px;
   max-width: 760px;
 }
 
-/* two-column rows (auto collapse on mobile) */
 .editTwoCols {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 16px;
 }
 
-/* ===== Fields (Input / Dropdown / Labels) ===== */
 .editForm .fui-Field {
   width: 100%;
 }
@@ -38,111 +33,131 @@
   color: #2f2f2f;
 }
 
-/* Input look (Fluent rounded + subtle shadow) */
 .editForm .fui-Input {
   width: 100%;
   height: 44px;
   border-radius: 12px !important;
   border: 1px solid #e6e6f0 !important;
   background: #fff !important;
-  box-shadow: 0 6px 18px rgba(0,0,0,.06);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, .06);
   transition: box-shadow .15s ease, border-color .15s ease, transform .06s ease;
   font-size: 16px;
 }
 
-/* Focus ring */
 .editForm .fui-Input:focus-within,
 .editForm .fui-Input:focus {
   border-color: #b7c7ff !important;
-  box-shadow: 0 10px 24px rgba(35,76,219,.18), 0 0 0 3px rgba(102,132,255,.18);
+  box-shadow: 0 10px 24px rgba(35, 76, 219, .18), 0 0 0 3px rgba(102, 132, 255, .18);
 }
 
-/* Dropdown root */
+.editForm .fui-Combobox {
+  width: 100%;
+  min-height: 44px;
+  border-radius: 12px;
+  background: #fff;
+}
+
+.editForm .fui-Combobox__input {
+  height: 44px;
+  border-radius: 12px;
+  color: inherit;
+  opacity: 1;
+  box-shadow: 0 1px 0 rgba(0, 0, 0, .02) inset;
+  transition: box-shadow .15s ease, border-color .15s ease, background-color .15s ease;
+}
+
+.editForm .fui-Combobox__input:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(64, 105, 225, .25);
+}
+
+.editForm .fui-Combobox__expandIcon {
+  opacity: 1;
+  visibility: visible;
+}
+
 .editForm .fui-Dropdown {
   width: 100%;
   min-height: 44px;
   border-radius: 12px !important;
   border: 1px solid #e6e6f0 !important;
   background: #fff !important;
-  box-shadow: 0 6px 18px rgba(0,0,0,.06);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, .06);
   transition: box-shadow .15s ease, border-color .15s ease, transform .06s ease;
   font-size: 16px;
 }
 
-/* Dropdown focus */
 .editForm .fui-Dropdown:focus-within,
 .editForm .fui-Dropdown:focus {
   border-color: #b7c7ff !important;
-  box-shadow: 0 10px 24px rgba(35,76,219,.18), 0 0 0 3px rgba(102,132,255,.18);
+  box-shadow: 0 10px 24px rgba(35, 76, 219, .18), 0 0 0 3px rgba(102, 132, 255, .18);
 }
 
-/* ===== Divider (soft) ===== */
 .fui-Divider {
   margin: 8px 0;
   border-color: #f0f1f7 !important;
 }
 
-/* ===== Form actions (buttons) ===== */
 .formActions {
   display: flex;
   gap: 12px;
   margin-top: 8px;
 }
 
-/* Base pill button */
 .formActions .fui-Button {
   height: 40px !important;
   border-radius: 12px !important;
   padding: 0 16px !important;
   font-weight: 600 !important;
   transition: transform .06s ease, box-shadow .15s ease, filter .15s ease,
-              background-color .15s ease, border-color .15s ease;
+    background-color .15s ease, border-color .15s ease;
 }
 
-/* Icons inside buttons */
 .formActions .fui-Button__icon {
   margin-right: 6px;
 }
 
-/* ===== Error text ===== */
 .errorText {
   color: crimson;
   font-weight: 600;
 }
 
-/* ===== Responsive ===== */
 @media (max-width: 720px) {
-  .editTwoCols { grid-template-columns: 1fr; }
+  .editTwoCols {
+    grid-template-columns: 1fr;
+  }
 }
 
-/* === Explicit button classes (reliable Fluent styling) === */
 .primary-btn {
-  background-color: #0f6cbd !important;  /* Fluent blue */
+  background-color: #0f6cbd !important;
   color: #fff !important;
   border: none !important;
   border-radius: 12px !important;
   height: 40px !important;
   padding: 0 16px !important;
   font-weight: 600 !important;
-  box-shadow: 0 8px 18px rgba(27,64,218,.20);
+  box-shadow: 0 8px 18px rgba(27, 64, 218, .20);
   transition: transform .06s ease, box-shadow .15s ease,
-              filter .15s ease, background-color .15s ease;
+    filter .15s ease, background-color .15s ease;
 }
+
 .primary-btn:hover {
   background-color: #115ea3 !important;
   transform: translateY(-1px);
-  box-shadow: 0 14px 28px rgba(27,64,218,.25);
+  box-shadow: 0 14px 28px rgba(27, 64, 218, .25);
   filter: brightness(1.02);
 }
+
 .primary-btn:active {
   background-color: #0d5c9e !important;
   transform: translateY(0);
-  box-shadow: 0 6px 14px rgba(27,64,218,.18);
+  box-shadow: 0 6px 14px rgba(27, 64, 218, .18);
 }
+
 .primary-btn:focus-visible {
   outline: none;
-  box-shadow: 0 0 0 3px rgba(102,132,255,.28),
-              0 10px 24px rgba(35,76,219,.16);
+  box-shadow: 0 0 0 3px rgba(102, 132, 255, .28),
+    0 10px 24px rgba(35, 76, 219, .16);
 }
 
 .ghost-btn {
@@ -153,23 +168,26 @@
   height: 40px !important;
   padding: 0 16px !important;
   font-weight: 600 !important;
-  box-shadow: 0 6px 14px rgba(0,0,0,.06);
+  box-shadow: 0 6px 14px rgba(0, 0, 0, .06);
   transition: transform .06s ease, box-shadow .15s ease,
-              background-color .15s ease, border-color .15s ease;
+    background-color .15s ease, border-color .15s ease;
 }
+
 .ghost-btn:hover {
   transform: translateY(-1px);
   background: #f7f9ff !important;
   border-color: #cfd8ff !important;
-  box-shadow: 0 12px 22px rgba(35,76,219,.14);
+  box-shadow: 0 12px 22px rgba(35, 76, 219, .14);
 }
+
 .ghost-btn:active {
   transform: translateY(0);
-  box-shadow: 0 4px 12px rgba(0,0,0,.08);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, .08);
 }
+
 .ghost-btn:focus-visible {
   outline: none;
   border-color: #b7c7ff !important;
-  box-shadow: 0 0 0 3px rgba(102,132,255,.28),
-              0 10px 24px rgba(35,76,219,.12);
+  box-shadow: 0 0 0 3px rgba(102, 132, 255, .28),
+    0 10px 24px rgba(35, 76, 219, .12);
 }

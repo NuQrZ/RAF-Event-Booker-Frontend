@@ -12,7 +12,10 @@ import {
   Add24Regular,
   Home24Regular,
   SignOut24Regular,
-  People24Regular
+  People24Regular,
+  CalendarMonth24Regular,
+  TagMultiple24Regular,
+  Globe24Regular
 } from '@fluentui/react-icons';
 import './AppShell.css';
 
@@ -24,6 +27,9 @@ export default function AppShell() {
   const homeActive = loc.pathname === '/';
   const usersActive = loc.pathname.startsWith('/ems/users') && !loc.pathname.endsWith('/create');
   const createActive = loc.pathname.endsWith('/create');
+  const eventsActive = loc.pathname.startsWith('/ems/events');
+  const categoriesActive = loc.pathname.startsWith('/ems/categories');
+  const publicEventsActive = loc.pathname.startsWith('/public/events');
 
   return (
     <div className="app-container app-gradient">
@@ -74,6 +80,36 @@ export default function AppShell() {
         </div>
 
         <Divider vertical className="toolbar-divider" />
+
+        <ToolbarButton
+          className={`nav-btn ${eventsActive ? 'primary-btn' : ''}`}
+          appearance={eventsActive ? 'primary' : 'subtle'}
+          onClick={() =>
+            profile?.role === 'ADMIN' ? nav('/ems/events') : nav('/no-access')
+          }
+          icon={<CalendarMonth24Regular />}
+        >
+          Events
+        </ToolbarButton>
+
+        <ToolbarButton
+          className={`nav-btn ${categoriesActive ? 'primary-btn' : ''}`}
+          appearance={categoriesActive ? 'primary' : 'subtle'}
+          onClick={() => nav('/ems/categories')}
+          icon={<TagMultiple24Regular />}
+        >
+          Categories
+        </ToolbarButton>
+
+        <ToolbarButton
+          className={`nav-btn ${publicEventsActive ? 'primary-btn' : ''}`}
+          appearance={publicEventsActive ? 'primary' : 'subtle'}
+          onClick={() => nav('/public/events')}
+          icon={<Globe24Regular />}
+        >
+          Public Events
+        </ToolbarButton>
+
         <ToolbarButton
           className="nav-btn ghost-danger"
           appearance="subtle"

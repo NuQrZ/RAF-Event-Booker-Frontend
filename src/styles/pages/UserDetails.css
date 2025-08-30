@@ -1,17 +1,14 @@
-/* ===== Page wrapper ===== */
 .pageWrap {
   display: grid;
   gap: 16px;
 }
 
-/* ===== Top bar ===== */
 .pageHeader {
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
 
-/* Back button = ghost style */
 .pageHeader .fui-Button,
 .ghost-btn {
   height: 36px !important;
@@ -20,61 +17,60 @@
   font-weight: 600 !important;
   background: #fff !important;
   border: 1px solid #e6e6f2 !important;
-  box-shadow: 0 6px 14px rgba(0,0,0,.06);
+  box-shadow: 0 6px 14px rgba(0, 0, 0, .06);
   transition: transform .06s ease, box-shadow .15s ease,
-              background-color .15s ease, border-color .15s ease;
+    background-color .15s ease, border-color .15s ease;
 }
+
 .pageHeader .fui-Button:hover,
 .ghost-btn:hover {
   transform: translateY(-1px);
   background: #f7f9ff !important;
   border-color: #cfd8ff !important;
-  box-shadow: 0 12px 22px rgba(35,76,219,.14);
+  box-shadow: 0 12px 22px rgba(35, 76, 219, .14);
 }
+
 .pageHeader .fui-Button:active,
 .ghost-btn:active {
   transform: translateY(0);
-  box-shadow: 0 4px 12px rgba(0,0,0,.08);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, .08);
 }
 
-/* ===== Details card ===== */
 .detailsCard {
   margin-top: 8px;
   padding: 18px;
   border-radius: 16px;
   background: #fff;
   border: 1px solid #ececf3;
-  box-shadow: 0 12px 32px rgba(0,0,0,.06);
+  box-shadow: 0 12px 32px rgba(0, 0, 0, .06);
 }
 
-/* Header inside card */
 .detailsHead {
   display: flex;
   align-items: center;
   gap: 14px;
 }
+
 .headText {
   display: grid;
   gap: 2px;
 }
+
 .headText .fui-Title2 {
   line-height: 1.2;
 }
 
-/* Badges row */
 .headBadges {
   display: flex;
   gap: 8px;
   margin-top: 6px;
 }
 
-/* Divider */
 .detailsDivider {
   margin: 10px 0 8px;
   border-color: #f0f1f7 !important;
 }
 
-/* ===== Info grid ===== */
 .detailsGrid {
   display: grid;
   grid-template-columns: 180px 1fr;
@@ -83,22 +79,23 @@
   align-items: center;
   font-size: 16px;
 }
+
 .detailsGrid .fui-Text[weight="semibold"] {
   color: #2f2f2f;
 }
+
 .detailsGrid .fui-Text:not([weight]) {
   color: #1f1f1f;
 }
 
-/* ID monospace + email monospace */
 .detailsGrid .fui-Text:where(:nth-child(2)) {
   font-variant-numeric: tabular-nums;
 }
+
 .detailsGrid .fui-Text:where(:nth-child(8)) {
   font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
 }
 
-/* ===== Status toolbar ===== */
 .statusToolbar {
   display: flex;
   align-items: center;
@@ -106,103 +103,109 @@
   margin-top: 10px;
 }
 
-/* Dropdown trigger */
-.statusToolbar .fui-Dropdown,
 .statusToolbar .fui-Combobox {
-  border-radius: 12px !important;
-  background: #fff !important;
+  min-width: 160px;
+  border-radius: 12px;
+  background: #fff;
 }
-.statusToolbar .fui-Dropdown__button,
-.statusToolbar .fui-Combobox__button,
-.statusToolbar .fui-Dropdown .fui-Button,
-.statusToolbar .fui-Combobox .fui-Button {
+
+.statusToolbar .fui-Combobox__input {
+  height: 40px;
+  border-radius: 12px;
+  color: inherit;
+  opacity: 1;
+  box-shadow: 0 1px 0 rgba(0, 0, 0, .02) inset;
+  transition: box-shadow .15s ease, border-color .15s ease, background-color .15s ease;
+}
+
+.statusToolbar .fui-Combobox__input:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(64, 105, 225, .25);
+}
+
+.statusToolbar .fui-Combobox__expandIcon {
+  opacity: 1;
+  visibility: visible;
+}
+
+.statusToolbar .fui-Dropdown,
+.statusToolbar .fui-Dropdown .fui-Button {
   min-height: 40px;
   border-radius: 12px !important;
   border: 1px solid #e6e6f0 !important;
   background: #fff !important;
-  box-shadow: 0 6px 18px rgba(0,0,0,.06);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, .06);
   transition: box-shadow .15s ease, border-color .15s ease, transform .06s ease;
   font-size: 16px;
 }
-.statusToolbar .fui-Dropdown__button:hover,
-.statusToolbar .fui-Combobox__button:hover,
-.statusToolbar .fui-Dropdown .fui-Button:hover,
-.statusToolbar .fui-Combobox .fui-Button:hover {
+
+.statusToolbar .fui-Dropdown .fui-Button:hover {
   transform: translateY(-1px);
 }
-.statusToolbar .fui-Dropdown__button:focus,
-.statusToolbar .fui-Dropdown__button:focus-visible,
-.statusToolbar .fui-Combobox__button:focus,
-.statusToolbar .fui-Combobox__button:focus-visible,
-.statusToolbar .fui-Dropdown .fui-Button:focus,
-.statusToolbar .fui-Combobox .fui-Button:focus {
-  border-color: #b7c7ff !important;
-  box-shadow: 0 10px 24px rgba(35,76,219,.18),
-              0 0 0 3px rgba(102,132,255,.18);
-}
 
-/* Dropdown menu */
 .fui-Listbox {
   border-radius: 12px !important;
-  box-shadow: 0 18px 36px rgba(0,0,0,.16);
+  box-shadow: 0 18px 36px rgba(0, 0, 0, .16);
   border: 1px solid #e8e9f3 !important;
 }
+
 .fui-Option {
   padding: 10px 12px !important;
   border-radius: 8px !important;
 }
+
 .fui-Option[aria-selected="true"] {
   background: #eef3ff !important;
 }
 
-/* ===== Primary buttons (Edit user, Update) ===== */
 .primary-btn {
-  background-color: #0f6cbd !important; /* Fluent blue */
+  background-color: #0f6cbd !important;
   color: #fff !important;
   border: none !important;
   height: 38px !important;
   border-radius: 12px !important;
   padding: 0 16px !important;
   font-weight: 600 !important;
-  box-shadow: 0 8px 18px rgba(27,64,218,.20);
+  box-shadow: 0 8px 18px rgba(27, 64, 218, .20);
   transition: transform .06s ease, box-shadow .15s ease,
-              filter .15s ease, background-color .15s ease;
+    filter .15s ease, background-color .15s ease;
 }
+
 .primary-btn:hover {
   background-color: #115ea3 !important;
   transform: translateY(-1px);
-  box-shadow: 0 14px 28px rgba(27,64,218,.25);
+  box-shadow: 0 14px 28px rgba(27, 64, 218, .25);
   filter: brightness(1.02);
 }
+
 .primary-btn:active {
   background-color: #0d5c9e !important;
   transform: translateY(0);
-  box-shadow: 0 6px 14px rgba(27,64,218,.18);
-}
-.primary-btn:focus-visible {
-  outline: none;
-  box-shadow: 0 0 0 3px rgba(102,132,255,.28),
-              0 10px 24px rgba(35,76,219,.16);
+  box-shadow: 0 6px 14px rgba(27, 64, 218, .18);
 }
 
-/* Disabled */
+.primary-btn:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(102, 132, 255, .28),
+    0 10px 24px rgba(35, 76, 219, .16);
+}
+
 .fui-Button:disabled {
   filter: grayscale(.15) opacity(.85);
   box-shadow: none !important;
 }
 
-/* ===== Error text ===== */
 .errorText {
   color: crimson;
   margin-top: 8px;
   font-weight: 600;
 }
 
-/* ===== Responsive ===== */
 @media (max-width: 720px) {
   .detailsGrid {
     grid-template-columns: 1fr;
   }
+
   .detailsCard .fui-CardHeader .fui-Button {
     margin-top: 8px;
   }

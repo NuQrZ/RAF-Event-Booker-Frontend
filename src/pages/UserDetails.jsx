@@ -6,7 +6,7 @@ import {
   Subtitle2,
   Text,
   Button,
-  Dropdown,
+  Combobox,
   Option,
   Card,
   CardHeader,
@@ -23,6 +23,7 @@ const statusColor = (s) => (s === 'ACTIVE' ? 'success' : 'warning');
 export default function UserDetails() {
   const { userID } = useParams();
   const nav = useNavigate();
+
   const [user, setUser] = useState(null);
   const [status, setStatus] = useState('ACTIVE');
   const [saving, setSaving] = useState(false);
@@ -33,7 +34,7 @@ export default function UserDetails() {
       try {
         const { data } = await api(`/ems/users/${userID}`);
         setUser(data);
-        setStatus(data.userStatus);
+        setStatus(data.userStatus ?? 'ACTIVE');
       } catch (e) {
         setErr(String(e.message || e));
       }
@@ -83,9 +84,7 @@ export default function UserDetails() {
             <div className="detailsHead">
               <Avatar name={`${user.firstName} ${user.lastName}`} size={56} />
               <div className="headText">
-                <Title2>
-                  {user.firstName} {user.lastName}
-                </Title2>
+                <Title2>{user.firstName} {user.lastName}</Title2>
                 <Subtitle2>{user.email}</Subtitle2>
               </div>
             </div>
@@ -103,7 +102,7 @@ export default function UserDetails() {
           action={
             <Button
               className="primary-btn"
-              style={{width: "130px"}}
+              style={{ width: '130px' }}
               icon={<Edit24Regular />}
               appearance="primary"
               onClick={() => nav(`/ems/users/${user.userID}/edit`)}
@@ -140,13 +139,19 @@ export default function UserDetails() {
         <CardFooter>
           <div className="statusToolbar">
             <Text>Change status:</Text>
-            <Dropdown
+
+            <Combobox
               selectedOptions={[status]}
-              onOptionSelect={(e, d) => setStatus(d.optionValue)}
-            >
+              value={status}
+              displayValue={status}
+              onChange={(e, data) => setStatus(data.value ?? '')}
+              onOptionSelect={(e, data) => setStatus(data.optionValue ?? '')}
+              placeholder="Select status"
+              className='fui-Combobox__input'>
               <Option value="ACTIVE">ACTIVE</Option>
               <Option value="INACTIVE">INACTIVE</Option>
-            </Dropdown>
+            </Combobox>
+
             <Button
               className="primary-btn"
               onClick={onPatchStatus}

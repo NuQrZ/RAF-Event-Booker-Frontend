@@ -3,7 +3,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    background: linear-gradient(135deg, rgba(33,150,243,0.15), rgba(156,39,176,0.15), rgba(255,255,255,0.6) );
+    background: linear-gradient(135deg, rgba(33, 150, 243, 0.15), rgba(156, 39, 176, 0.15), rgba(255, 255, 255, 0.6));
     background-size: 200% 200%;
     animation: gradientShift 10s ease infinite;
 }
@@ -29,17 +29,18 @@
     backdrop-filter: blur(14px) saturate(160%);
     border: 1px solid #eaeaea;
     border-radius: 20px;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.05), 0 18px 48px rgba(0,0,0,0.08);
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05), 0 18px 48px rgba(0, 0, 0, 0.08);
     padding: clamp(24px, 3vw, 36px);
 }
-    .login-card .title {
-        margin-bottom: 6px;
-    }
 
-    .login-card .subtitle {
-        margin-bottom: 18px;
-        color: #666;
-    }
+.login-card .title {
+    margin-bottom: 6px;
+}
+
+.login-card .subtitle {
+    margin-bottom: 18px;
+    color: #666;
+}
 
 .login-form {
     display: grid;
@@ -54,13 +55,13 @@
 }
 
 .field .fui-Input {
-    height: 48px; /* outer control height */
+    height: 48px;
     border-radius: 12px;
 }
 
-    .field .fui-Input input {
-        padding: 12px 14px; /* inner padding */
-    }
+.field .fui-Input input {
+    padding: 12px 14px;
+}
 
 .login-password-field {
     position: relative;

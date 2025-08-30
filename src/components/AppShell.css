@@ -1,4 +1,3 @@
-/* ===== App layout ===== */
 .app-container {
   min-height: 100vh;
   display: flex;
@@ -30,7 +29,6 @@
 
 .toolbar-spacer { flex: 1; }
 
-/* ===== Header / Toolbar ===== */
 .app-toolbar {
   position: sticky;
   top: 0;
@@ -44,19 +42,17 @@
   box-shadow: 0 12px 24px rgba(0, 0, 0, 0.06);
 }
 
-/* Divider between profile and logout */
 .toolbar-divider {
   margin: 0 12px !important;
   border-color: rgba(0, 0, 0, 0.08) !important;
 }
 
-/* ===== Toolbar buttons (nav) ===== */
 .nav-btn {
   height: 36px !important;
   border-radius: 12px !important;
   padding: 0 12px !important;
   font-weight: 600 !important;
-  color: #222 !important; /* dark text by default */
+  color: #222 !important;
   transition:
     transform .06s ease,
     box-shadow .15s ease,
@@ -65,7 +61,6 @@
     filter .15s ease;
 }
 
-/* Subtle/ghost look */
 .nav-btn:not(.primary-btn) {
   background: rgba(255, 255, 255, 0.75) !important;
   border: 1px solid rgba(0, 0, 0, 0.06) !important;
@@ -82,9 +77,8 @@
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
 }
 
-/* ===== Active/primary nav button (blue pill) ===== */
 .primary-btn {
-  background-color: #0f6cbd !important; /* Fluent brand blue */
+  background-color: #0f6cbd !important;
   color: #fff !important;
   border: none !important;
   box-shadow: 0 8px 18px rgba(27, 64, 218, 0.2);
@@ -106,7 +100,6 @@
               0 10px 24px rgba(35, 76, 219, 0.16);
 }
 
-/* Logout button – ghost but with danger accent */
 .ghost-danger {
   background: rgba(255, 255, 255, 0.8) !important;
   border: 1px solid rgba(255, 0, 0, 0.08) !important;
@@ -116,10 +109,8 @@
   box-shadow: 0 12px 22px rgba(255, 0, 0, 0.12);
 }
 
-/* Icon spacing inside nav buttons */
 .fui-ToolbarButton__icon { margin-right: 6px; }
 
-/* ===== Profile chip ===== */
 .profile-chip {
   display: flex;
   align-items: center;
@@ -133,16 +124,14 @@
 }
 .profile-name { font-weight: 600; }
 
-/* Badge polish inside profile chip */
 .profile-chip .fui-Badge {
   border-radius: 999px !important;
   padding: 2px 8px !important;
   font-weight: 700 !important;
 }
 
-/* ===== Responsive ===== */
 @media (max-width: 720px) {
   .app-toolbar { padding: 8px 10px !important; }
   .nav-btn { padding: 0 10px !important; }
-  .profile-name { display: none; } /* compact on small screens */
+  .profile-name { display: none; }
 }
