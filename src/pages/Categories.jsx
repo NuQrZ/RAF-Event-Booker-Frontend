@@ -25,7 +25,7 @@ export default function Categories() {
     async function load() {
         try {
             setError('');
-            const { data } = await api(`/ems/categories?page=${page}&size=${limit}`);
+            const { data } = await api(`/public/categories?page=${page}&size=${limit}`);
             setRows(normItems(data));
         } catch (e) {
             setRows([]);

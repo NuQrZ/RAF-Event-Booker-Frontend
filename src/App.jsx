@@ -28,10 +28,8 @@ export default function App() {
   return (
     <AuthProvider>
       <Routes>
-        {/* root "/" preusmerava na public/events */}
         <Route path="/" element={<Navigate to="/public/events" replace />} />
 
-        {/* Public layout */}
         <Route path="/public" element={<AppShell />}>
           <Route path="events" element={<PublicHome />} />
           <Route path="events/latest" element={<PublicHome />} />
@@ -45,7 +43,6 @@ export default function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/no-access" element={<NoAccess />} />
 
-        {/* Protected EMS layout */}
         <Route element={<ProtectedRoute><AppShell /></ProtectedRoute>}>
           <Route path="/adminHome" element={<Home />} />
           <Route path="/ems/users" element={<UsersList />} />
@@ -60,7 +57,6 @@ export default function App() {
           <Route path="/ems/categories" element={<Categories />} />
         </Route>
 
-        {/* fallback */}
         <Route path="*" element={<Navigate to="/public/events" replace />} />
       </Routes>
     </AuthProvider>

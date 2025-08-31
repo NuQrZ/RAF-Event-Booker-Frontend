@@ -38,7 +38,7 @@ export default function Events() {
   async function loadCategories() {
     try {
       setError('');
-      const { data } = await api(`/ems/categories?page=1&size=100`);
+      const { data } = await api(`/public/categories?page=1&size=100`);
       const items = normItems(data);
       setCategories(items);
 
@@ -61,17 +61,17 @@ export default function Events() {
     try {
       setError('');
       const isAllCats = !categoryId;
-      let path = `/ems/events?page=${page}&size=${size}`;
-      if (!isAllCats) path = `/ems/events/by-category/${categoryId}?page=${page}&size=${size}`;
-      if (tag)        path = `/ems/events/by-tag/${encodeURIComponent(tag)}?page=${page}&size=${size}`;
+      let path = `/public/events?page=${page}&size=${size}`;
+      if (!isAllCats) path = `/public/events/by-category/${categoryId}?page=${page}&size=${size}`;
+      if (tag) path = `/public/events/by-tag/${encodeURIComponent(tag)}?page=${page}&size=${size}`;
       if (query && isAllCats && !tag)
-        path = `/ems/events?page=${page}&size=${size}&query=${encodeURIComponent(query)}`;
+        path = `/public/events?page=${page}&size=${size}&query=${encodeURIComponent(query)}`;
 
       const { data } = await api(path);
       setRows(normItems(data));
     } catch (e) {
       setRows([]);
-      setError(e.message || 'Greška pri učitavanju događaja.');
+      setError(e.message || 'Error loading events.');
     }
   }
 

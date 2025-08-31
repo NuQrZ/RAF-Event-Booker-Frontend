@@ -1,5 +1,6 @@
-import React, { createContext, useContext, useMemo, useState } from 'react'
+import React, { createContext, useContext, useMemo, useState, useEffect } from 'react'
 import { api } from '../utils/api'
+import { getExpiryDate, isExpired } from '../utils/jwt'
 
 const AuthCtx = createContext(null)
 
@@ -24,8 +25,30 @@ export function AuthProvider({ children }) {
   const logout = () => {
     localStorage.clear()
     setProfile(null)
-    window.location.href = '/public/events'
+    window.location.href = '/login'
   }
+
+  useEffect(() => {
+    if (!profile?.token) return
+
+    if (isExpired(profile.token)) {
+      logout()
+      return
+    }
+
+    const expAt = getExpiryDate(profile.token)
+    if (!expAt) return
+
+    const now = Date.now()
+    const msLeft = expAt.getTime() - now
+    const skewMs = 3000
+
+    const t = setTimeout(() => {
+      logout()
+    }, Math.max(0, msLeft - skewMs))
+
+    return () => clearTimeout(t)
+  }, [profile?.token])
 
   const value = useMemo(() => ({ profile, login, logout }), [profile])
   return <AuthCtx.Provider value={value}>{children}</AuthCtx.Provider>

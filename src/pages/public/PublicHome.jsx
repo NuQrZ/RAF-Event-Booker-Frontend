@@ -1,6 +1,6 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import { api } from '../../utils/api';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { Combobox, Option, Input } from '@fluentui/react-components';
 import '../../styles/pages/Public.css';
 
@@ -26,9 +26,7 @@ function EventCard({ ev }) {
   return (
     <article className="pub-card">
       <h3 className="pub-card__title">
-        {eventID ? (
-          <Link className="pub-link" to={`/public/events/${eventID}`}>{title}</Link>
-        ) : title}
+        {eventID ? <Link className="pub-link" to={`/public/events/${eventID}`}>{title}</Link> : title}
       </h3>
 
       <div className="pub-card__meta">
@@ -51,6 +49,7 @@ function EventCard({ ev }) {
 
 export default function PublicHome() {
   const nav = useNavigate();
+  const { pathname } = useLocation();
 
   const [items, setItems] = useState([]);
   const [loading, setLoad] = useState(true);
@@ -70,7 +69,11 @@ export default function PublicHome() {
     (async () => {
       try {
         setLoad(true); setError('');
-        const res = await api('/public/events/latest?page=1&limit=10', { auth: false });
+        let url = '/public/events/latest?limit=10';
+        if (pathname.endsWith('/most-viewed')) url = '/public/events/most-viewed?limit=10';
+        else if (pathname.endsWith('/most-reacted')) url = '/public/events/most-reacted?limit=10';
+
+        const res = await api(url, { auth: false });
         setItems(normItems(res?.data));
       } catch (e) {
         setItems([]);
@@ -79,13 +82,13 @@ export default function PublicHome() {
         setLoad(false);
       }
     })();
-  }, []);
+  }, [pathname]);
 
   useEffect(() => {
     (async () => {
       try {
         setCatsLoading(true); setCatsError('');
-        const k1 = await api(`/public/categories`);
+        const k1 = await api('/public/categories', { auth: false });
         const list1 = normItems(k1?.data)
           .map(c => ({
             id: String(c.categoryID ?? c.id),
@@ -103,7 +106,7 @@ export default function PublicHome() {
   }, []);
 
   const goToTag = () => {
-    const t = tag.trim();
+    const t = tag.trim().toLowerCase();
     if (!t) return;
     nav(`/public/events/by-tag/${encodeURIComponent(t)}`);
   };
@@ -140,7 +143,11 @@ export default function PublicHome() {
 
   return (
     <div className="publicPage">
-      <h2 className="publicTitle">Most recent events</h2>
+      <h2 className="publicTitle">
+        {pathname.endsWith('/most-viewed') ? 'Most viewed' :
+         pathname.endsWith('/most-reacted') ? 'Most reacted' :
+         'Most recent events'}
+      </h2>
 
       <div className="publicActions">
         <Link className="pub-btn" to="/public/events">Most recent</Link>

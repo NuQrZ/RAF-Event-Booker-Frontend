@@ -63,7 +63,7 @@ export default function EventForm({ mode }) {
         (async () => {
             try {
                 setError('');
-                const { data } = await api('/ems/categories?page=1&size=100');
+                const { data } = await api('/public/categories?page=1&size=100');
                 const list = normItems(data);
                 setCats(list);
             } catch (e) {
@@ -78,6 +78,7 @@ export default function EventForm({ mode }) {
             try {
                 setError('');
                 const { data } = await api(`/ems/events/${eventID}`);
+                console.log('Event data:', data);
                 setTitle(data.eventName ?? data.title ?? '');
                 setDescription(data.eventDescription ?? data.description ?? '');
                 const t = data.startTime ?? data.startAt ?? '';

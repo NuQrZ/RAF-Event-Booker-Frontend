@@ -77,7 +77,7 @@ export default function UsersList() {
                 <TableHeaderCell style={{ width: '300px' }}>Email</TableHeaderCell>
                 <TableHeaderCell>Name</TableHeaderCell>
                 <TableHeaderCell>Role</TableHeaderCell>
-                <TableHeaderCell style={{}}>Status</TableHeaderCell>
+                <TableHeaderCell>Status</TableHeaderCell>
                 <TableHeaderCell>Actions</TableHeaderCell>
               </TableRow>
             </TableHeader>
@@ -111,13 +111,20 @@ export default function UsersList() {
       )}
 
       <div className="pager">
-        <Button disabled={page.pageNumber <= 0} onClick={() => onPageChange(page.pageNumber - 1)}>
-          Prev
-        </Button>
-        <Text>
-          Page {page.pageNumber + 1} / {page.totalPages}
-        </Text>
         <Button
+          className="pager-btn"
+          disabled={page.pageNumber <= 0}
+          onClick={() => onPageChange(page.pageNumber - 1)}
+        >
+          Previous
+        </Button>
+
+        <Text className="pager-info">
+          Page {page.pageNumber + 1} / {page.totalPages || 1}
+        </Text>
+
+        <Button
+          className="pager-btn"
           disabled={page.pageNumber + 1 >= page.totalPages}
           onClick={() => onPageChange(page.pageNumber + 1)}
         >

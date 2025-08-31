@@ -1,10 +1,14 @@
-/* --- Global hard stop for horizontal overflow --- */
-html, body { overflow-x: hidden; }
+html,
+body {
+  overflow-x: hidden;
+}
 
-/* Predictable sizing */
-*, *::before, *::after { box-sizing: border-box; }
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
 
-/* ============== Layout ============== */
 .w11-pageShell {
   max-width: 1120px;
   width: min(1120px, 100%);
@@ -12,7 +16,6 @@ html, body { overflow-x: hidden; }
   padding: 24px 20px;
   display: grid;
   gap: 16px;
-  /* If a child still paints a few px, clip it locally */
   overflow-x: clip;
 }
 
@@ -22,7 +25,7 @@ html, body { overflow-x: hidden; }
   justify-content: space-between;
   gap: 12px;
   flex-wrap: wrap;
-  min-width: 0; /* allow shrinking without overflow */
+  min-width: 0;
 }
 
 .w11-title {
@@ -44,7 +47,6 @@ html, body { overflow-x: hidden; }
   border-radius: 16px;
   padding: 16px;
   box-shadow: 0 6px 22px rgba(0, 0, 0, .06);
-  /* Ensure inner shadows/content never trigger horizontal scroll */
   overflow-x: clip;
 }
 
@@ -60,34 +62,45 @@ html, body { overflow-x: hidden; }
 }
 
 @media (max-width: 900px) {
-  .w11-grid2 { grid-template-columns: 1fr; }
+  .w11-grid2 {
+    grid-template-columns: 1fr;
+  }
 }
 
-/* ============== Toolbar & Fields ============== */
 .w11-field {
   display: flex;
   flex-direction: column;
   gap: 6px;
-  min-width: 0; /* key: allow inputs to shrink in flex rows */
+  min-width: 0;
 }
 
-.w11-grow { flex: 1 1 360px; min-width: 0; }
+.w11-grow {
+  flex: 1 1 360px;
+  min-width: 0;
+}
 
 .w11-toolbar {
   display: flex;
   align-items: flex-end;
   gap: 12px;
   flex-wrap: wrap;
-  /* prevent children from enforcing intrinsic width that causes overflow */
   min-width: 0;
 }
 
-.w11-toolbar > * { min-width: 0; }
+.w11-toolbar>* {
+  min-width: 0;
+}
 
-.w11-toolbar .w11-field { flex: 0 0 220px; min-width: 0; }
-.w11-toolbar .w11-field.w11-grow { flex: 1 1 360px; min-width: 0; }
+.w11-toolbar .w11-field {
+  flex: 0 0 220px;
+  min-width: 0;
+}
 
-/* Inputs (Fluent) */
+.w11-toolbar .w11-field.w11-grow {
+  flex: 1 1 360px;
+  min-width: 0;
+}
+
 .w11-field .fui-Input,
 .w11-field .fui-Textarea,
 .w11-field .fui-Dropdown,
@@ -113,14 +126,16 @@ html, body { overflow-x: hidden; }
     0 0 0 3px rgba(102, 132, 255, .24);
 }
 
-/* ============== Combobox (expand icon fix) ============== */
-.w11-combobox { position: relative; min-width: 0; }
+.w11-combobox {
+  position: relative;
+  min-width: 0;
+}
 
 .w11-combobox .fui-Input {
   height: 40px;
   font-size: 14px;
   padding-inline-start: 12px !important;
-  padding-inline-end: 30px !important; /* space for expand icon */
+  padding-inline-end: 30px !important;
 }
 
 .w11-combobox .fui-Combobox__expandIcon {
@@ -135,10 +150,15 @@ html, body { overflow-x: hidden; }
   color: #7a849a;
 }
 
-.w11-combobox:focus-within .fui-Combobox__expandIcon { color: #1e5eff; }
-.w11-combobox .fui-Combobox__input { color: inherit; opacity: 1; }
+.w11-combobox:focus-within .fui-Combobox__expandIcon {
+  color: #1e5eff;
+}
 
-/* Listbox */
+.w11-combobox .fui-Combobox__input {
+  color: inherit;
+  opacity: 1;
+}
+
 .fui-Listbox {
   border: 1px solid #ececf3 !important;
   background: #fff !important;
@@ -154,7 +174,9 @@ html, body { overflow-x: hidden; }
   transition: background-color .12s ease, color .12s ease, box-shadow .12s ease;
 }
 
-.fui-Option:hover { background: #f7f9ff !important; }
+.fui-Option:hover {
+  background: #f7f9ff !important;
+}
 
 .fui-Option[aria-selected="true"],
 .fui-Option[aria-checked="true"] {
@@ -164,24 +186,23 @@ html, body { overflow-x: hidden; }
   box-shadow: 0 0 0 3px rgba(102, 132, 255, .18);
 }
 
-/* ============== Table ============== */
 .w11-tableWrap {
   width: 100%;
-  overflow-x: auto;   /* only scroll horizontally if table needs it */
+  overflow-x: auto;
   overflow-y: visible;
 }
 
-/* Make the table honor the container’s width instead of its intrinsic content width */
 .w11-tableWrap table,
 .w11-tableWrap .fui-Table {
   width: 100%;
-  table-layout: fixed; /* prevents long content from forcing wider table */
-  border-collapse: separate; /* safer with shadows */
+  table-layout: fixed;
+  border-collapse: separate;
 }
 
-.fui-TableRow:hover { background: rgba(0, 0, 0, 0.02); }
+.fui-TableRow:hover {
+  background: rgba(0, 0, 0, 0.02);
+}
 
-/* Prevent long words/URLs/tags from pushing width */
 .w11-tableWrap td,
 .w11-tableWrap th,
 .fui-TableCell,
@@ -190,7 +211,6 @@ html, body { overflow-x: hidden; }
   overflow-wrap: anywhere;
 }
 
-/* ============== Pager ============== */
 .w11-pager {
   margin-top: 12px;
   display: flex;
@@ -199,7 +219,6 @@ html, body { overflow-x: hidden; }
   min-width: 0;
 }
 
-/* ============== Buttons ============== */
 .w11-pageShell .fui-Button {
   height: 42px !important;
   border-radius: 12px !important;
@@ -244,9 +263,10 @@ html, body { overflow-x: hidden; }
   box-shadow: 0 12px 22px rgba(35, 76, 219, .14);
 }
 
-.w11-btnSecondary:active { box-shadow: 0 4px 12px rgba(0, 0, 0, .08); }
+.w11-btnSecondary:active {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, .08);
+}
 
-/* ============== Actions Row ============== */
 .w11-actions {
   display: flex;
   align-items: center;
@@ -256,4 +276,6 @@ html, body { overflow-x: hidden; }
   min-width: 0;
 }
 
-.w11-actions .w11-btnSecondary { margin-left: auto; }
+.w11-actions .w11-btnSecondary {
+  margin-left: auto;
+}

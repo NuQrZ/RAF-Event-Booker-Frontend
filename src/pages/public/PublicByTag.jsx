@@ -1,6 +1,15 @@
 import React, { useEffect, useState } from "react";
 import { api } from "../../utils/api";
 import { Link, useParams } from "react-router-dom";
+import "../../styles/pages/PublicLists.css";
+
+function normItems(d) {
+  if (Array.isArray(d)) return d;
+  if (Array.isArray(d?.items)) return d.items;
+  if (Array.isArray(d?.content)) return d.content;
+  if (Array.isArray(d?.data)) return d.data;
+  return [];
+}
 
 export default function PublicByTag() {
   const { tag } = useParams();
@@ -8,11 +17,9 @@ export default function PublicByTag() {
 
   useEffect(() => {
     (async () => {
-      const { data } = await api(
-        `/public/events/by-tag/${encodeURIComponent(tag)}?page=1&limit=20`,
-        { auth: false }
-      );
-      setItems(data.items || data);
+      const q = encodeURIComponent(String(tag || '').toLowerCase());
+      const { data } = await api(`/public/events/by-tag/${q}?page=1&size=20`, { auth: false });
+      setItems(normItems(data));
     })();
   }, [tag]);
 
@@ -20,11 +27,16 @@ export default function PublicByTag() {
     <div className="pageWrap">
       <h2>Događaji za tag: {tag}</h2>
       <ul>
-        {items.map((ev) => (
-          <li key={ev.eventID}>
-            <Link to={`/public/events/${ev.eventID}`}>{ev.title}</Link>
-          </li>
-        ))}
+        {items.length === 0 && <li className="empty">No events found.</li>}
+        {items.map(ev => {
+          const id = ev.eventID ?? ev.id;
+          const title = ev.eventName ?? ev.title ?? ev.name ?? '(no title)';
+          return (
+            <li key={id}>
+              {id ? <Link to={`/public/events/${id}`}>{title}</Link> : title}
+            </li>
+          );
+        })}
       </ul>
     </div>
   );
