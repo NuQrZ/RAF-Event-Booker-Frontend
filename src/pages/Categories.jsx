@@ -29,7 +29,7 @@ export default function Categories() {
             setRows(normItems(data));
         } catch (e) {
             setRows([]);
-            setError(e.message || 'Greška pri učitavanju kategorija.');
+            setError(e.message || 'Error loading categories.');
         }
     }
     useEffect(() => { load(); }, [page]);

@@ -74,7 +74,7 @@ export default function PublicHome() {
         setItems(normItems(res?.data));
       } catch (e) {
         setItems([]);
-        setError(e?.message || 'Greška pri učitavanju događaja.');
+        setError(e?.message || 'Error loading events.');
       } finally {
         setLoad(false);
       }
@@ -95,7 +95,7 @@ export default function PublicHome() {
         setCategories(list1);
       } catch (e) {
         setCategories([]);
-        setCatsError('Greška pri učitavanju kategorija.');
+        setCatsError('Error loading categories.');
       } finally {
         setCatsLoading(false);
       }
@@ -155,14 +155,14 @@ export default function PublicHome() {
             onChange={(_, v) => setTag(v.value)}
             onKeyDown={(e) => e.key === 'Enter' && goToTag()}
           />
-          <button className="pub-btn" onClick={goToTag}>Idi na tag</button>
+          <button className="pub-btn" onClick={goToTag}>Go</button>
         </div>
 
         <div style={{ minWidth: 240 }}>
           <Combobox
             className="pub-combobox"
             size="medium"
-            placeholder={catsLoading ? 'Učitavam kategorije…' : (catsError || 'Kategorija…')}
+            placeholder={catsLoading ? 'Loading categories…' : (catsError || 'Category…')}
             value={catInput}
             selectedOptions={catSelected ? [catSelected] : []}
             onChange={onCatChange}

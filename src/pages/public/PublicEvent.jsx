@@ -35,7 +35,7 @@ export default function PublicEvent() {
   const [text, setText] = useState('');
   const [err, setErr] = useState('');
 
-  const headers = { 'X-Visitor-Id': getVisitorId() };
+  const headers = { 'VisitorId': getVisitorID() };
 
   async function load() {
     setErr('');

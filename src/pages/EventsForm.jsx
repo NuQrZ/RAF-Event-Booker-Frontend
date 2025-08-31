@@ -67,7 +67,7 @@ export default function EventForm({ mode }) {
                 const list = normItems(data);
                 setCats(list);
             } catch (e) {
-                setError(e.message || 'Greška pri učitavanju kategorija.');
+                setError(e.message || 'Error loading categories.');
             }
         })();
     }, []);
@@ -92,7 +92,7 @@ export default function EventForm({ mode }) {
                 setTags(tagNames.join(', '));
                 setMaxCapacity(data.maxCapacity ?? '');
             } catch (e) {
-                setError(e.message || 'Greška pri učitavanju događaja.');
+                setError(e.message || 'Error loading event.');
             }
         })();
     }, [mode, eventID]);
@@ -127,9 +127,9 @@ export default function EventForm({ mode }) {
     async function save() {
         try {
             setError('');
-            if (!title.trim()) throw new Error('Naslov je obavezan.');
-            if (!categoryId) throw new Error('Kategorija je obavezna.');
-            if (mode === 'create' && !startAt) throw new Error('Vreme početka je obavezno.');
+            if (!title.trim()) throw new Error('Title is required.');
+            if (!categoryId) throw new Error('Category is required.');
+            if (mode === 'create' && !startAt) throw new Error('Start time is required.');
 
             const base = {
                 eventName: title.trim(),
@@ -143,7 +143,7 @@ export default function EventForm({ mode }) {
             let body;
             if (mode === 'create') {
                 const authorID = getUserIdFromToken();
-                if (!authorID) console.warn('AuthorID nije pronađen u tokenu. Backend bi trebalo da ga izvadi iz JWT-a.');
+                if (!authorID) console.warn('AuthorID not found in token. Backend should extract it from JWT.');
                 body = { ...base, startAt, authorID: authorID ?? 0 };
             } else {
                 body = { ...base, ...(startAt ? { startAt } : {}) };
@@ -157,7 +157,7 @@ export default function EventForm({ mode }) {
             }
             nav('/ems/events');
         } catch (e) {
-            setError(e?.message || 'Greška pri čuvanju.');
+            setError(e?.message || 'Error saving event.');
         } finally {
             setSaving(false);
         }
@@ -176,7 +176,7 @@ export default function EventForm({ mode }) {
     return (
         <div className="w11-pageShell">
             <header className="w11-titleRow">
-                <h2 className="w11-title">{mode === 'create' ? 'Novi događaj' : 'Izmena događaja'}</h2>
+                <h2 className="w11-title">{mode === 'create' ? 'New event' : 'Edit event'}</h2>
                 {error && <div className="w11-error">{error}</div>}
             </header>
 
@@ -233,7 +233,7 @@ export default function EventForm({ mode }) {
                 <div className="w11-grid2">
                     <div className="w11-field">
                         <Label>Tags (with comma)</Label>
-                        <Input value={tags} onChange={(_, v) => setTags(v.value)} placeholder="muzika, koncert, live" />
+                        <Input value={tags} onChange={(_, v) => setTags(v.value)} placeholder="music, concert, live" />
                     </div>
                     <div className="w11-field">
                         <Label>Max capacity</Label>

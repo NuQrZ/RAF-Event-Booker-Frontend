@@ -53,7 +53,7 @@ export default function Events() {
         if (nm) { setCatInput(nm); setCatSelected(String(categoryId)); }
       }
     } catch (e) {
-      setError(e.message || 'Greška pri učitavanju kategorija.');
+      setError(e.message || 'Error loading categories.');
     }
   }
 
@@ -61,7 +61,7 @@ export default function Events() {
     try {
       setError('');
       const isAllCats = !categoryId;
-      let path = `/ems/events?page=${page}&size=${size}`;                  // default
+      let path = `/ems/events?page=${page}&size=${size}`;
       if (!isAllCats) path = `/ems/events/by-category/${categoryId}?page=${page}&size=${size}`;
       if (tag)        path = `/ems/events/by-tag/${encodeURIComponent(tag)}?page=${page}&size=${size}`;
       if (query && isAllCats && !tag)
@@ -162,12 +162,12 @@ export default function Events() {
 
           <div className="w11-field">
             <Label>Tag</Label>
-            <Input value={tag} onChange={(_, v) => setTag(v.value)} placeholder="npr. muzika" />
+            <Input value={tag} onChange={(_, v) => setTag(v.value)} placeholder="e.g music" />
           </div>
 
           <div className="w11-field w11-grow">
             <Label>Search</Label>
-            <Input value={query} onChange={(_, v) => setQuery(v.value)} placeholder="naslov/opis…" />
+            <Input value={query} onChange={(_, v) => setQuery(v.value)} placeholder="e.g title/description…" />
           </div>
 
           <div className="w11-actions">
@@ -219,7 +219,7 @@ export default function Events() {
               )}
               {rows.map(ev => {
                 const id = ev.eventID ?? ev.id;
-                const name = ev.eventName ?? ev.title ?? ev.name ?? '(bez naslova)';
+                const name = ev.eventName ?? ev.title ?? ev.name ?? '(no title)';
                 const when = ev.startTime ?? ev.startAt ?? '';
                 const loc = ev.eventLocation ?? ev.location ?? '';
                 const catId = ev.categoryID ?? ev.categoryId ?? ev.category?.categoryID;
