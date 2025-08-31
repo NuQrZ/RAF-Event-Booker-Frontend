@@ -1,92 +1,104 @@
+/* --- Global hard stop for horizontal overflow --- */
+html, body { overflow-x: hidden; }
+
+/* Predictable sizing */
+*, *::before, *::after { box-sizing: border-box; }
+
+/* ============== Layout ============== */
 .w11-pageShell {
-    max-width: 1120px;
-    margin: 0 auto;
-    padding: 24px 20px;
-    display: grid;
-    gap: 16px;
+  max-width: 1120px;
+  width: min(1120px, 100%);
+  margin: 0 auto;
+  padding: 24px 20px;
+  display: grid;
+  gap: 16px;
+  /* If a child still paints a few px, clip it locally */
+  overflow-x: clip;
 }
 
 .w11-titleRow {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 12px;
-    flex-wrap: wrap;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+  min-width: 0; /* allow shrinking without overflow */
 }
 
 .w11-title {
-    margin: 0;
-    font-weight: 700;
-    letter-spacing: .2px;
+  margin: 0;
+  font-weight: 700;
+  letter-spacing: .2px;
 }
 
 .w11-error {
-    background: #ffecec;
-    border: 1px solid #f5a9a9;
-    padding: 10px 12px;
-    border-radius: 10px;
+  background: #ffecec;
+  border: 1px solid #f5a9a9;
+  padding: 10px 12px;
+  border-radius: 10px;
 }
 
 .w11-card {
-    background: var(--colorNeutralBackground1, #fff);
-    border: 1px solid var(--colorNeutralStroke2, #ececf3);
-    border-radius: 16px;
-    padding: 16px;
-    box-shadow: 0 6px 22px rgba(0, 0, 0, .06);
+  background: var(--colorNeutralBackground1, #fff);
+  border: 1px solid var(--colorNeutralStroke2, #ececf3);
+  border-radius: 16px;
+  padding: 16px;
+  box-shadow: 0 6px 22px rgba(0, 0, 0, .06);
+  /* Ensure inner shadows/content never trigger horizontal scroll */
+  overflow-x: clip;
 }
 
 .w11-form {
-    display: grid;
-    gap: 16px;
+  display: grid;
+  gap: 16px;
 }
 
 .w11-grid2 {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 16px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
 }
 
 @media (max-width: 900px) {
-    .w11-grid2 {
-        grid-template-columns: 1fr;
-    }
+  .w11-grid2 { grid-template-columns: 1fr; }
 }
 
+/* ============== Toolbar & Fields ============== */
 .w11-field {
-    display: flex;
-    flex-direction: column;
-    gap: 6px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  min-width: 0; /* key: allow inputs to shrink in flex rows */
 }
 
-.w11-grow {
-    flex: 1 1 360px;
-}
+.w11-grow { flex: 1 1 360px; min-width: 0; }
 
 .w11-toolbar {
-    display: flex;
-    align-items: flex-end;
-    gap: 12px;
-    flex-wrap: wrap;
+  display: flex;
+  align-items: flex-end;
+  gap: 12px;
+  flex-wrap: wrap;
+  /* prevent children from enforcing intrinsic width that causes overflow */
+  min-width: 0;
 }
 
-.w11-toolbar .w11-field {
-    flex: 0 0 220px;
-}
+.w11-toolbar > * { min-width: 0; }
 
-.w11-toolbar .w11-field.w11-grow {
-    flex: 1 1 360px;
-}
+.w11-toolbar .w11-field { flex: 0 0 220px; min-width: 0; }
+.w11-toolbar .w11-field.w11-grow { flex: 1 1 360px; min-width: 0; }
 
+/* Inputs (Fluent) */
 .w11-field .fui-Input,
 .w11-field .fui-Textarea,
 .w11-field .fui-Dropdown,
 .w11-field .fui-Combobox {
-    border-radius: 12px !important;
-    border: 1px solid #e6e6f0 !important;
-    background: #fff !important;
-    box-shadow: 0 6px 18px rgba(0, 0, 0, .06);
-    transition: box-shadow .15s ease, border-color .15s ease, transform .06s ease;
-    width: 100%;
+  border-radius: 12px !important;
+  border: 1px solid #e6e6f0 !important;
+  background: #fff !important;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, .06);
+  transition: box-shadow .15s ease, border-color .15s ease, transform .06s ease;
+  width: 100%;
+  min-width: 0;
 }
 
 .w11-field .fui-Input:focus-within,
@@ -95,134 +107,153 @@
 .w11-field .fui-Dropdown:focus,
 .w11-field .fui-Combobox:focus-within,
 .w11-field .fui-Combobox:focus {
-    border-color: #b7c7ff !important;
-    box-shadow:
-        0 10px 24px rgba(35, 76, 219, .18),
-        0 0 0 3px rgba(102, 132, 255, .24);
+  border-color: #b7c7ff !important;
+  box-shadow:
+    0 10px 24px rgba(35, 76, 219, .18),
+    0 0 0 3px rgba(102, 132, 255, .24);
 }
 
+/* ============== Combobox (expand icon fix) ============== */
+.w11-combobox { position: relative; min-width: 0; }
+
 .w11-combobox .fui-Input {
-    height: 40px;
-    font-size: 14px;
-    padding: 0 12px !important;
+  height: 40px;
+  font-size: 14px;
+  padding-inline-start: 12px !important;
+  padding-inline-end: 30px !important; /* space for expand icon */
 }
 
 .w11-combobox .fui-Combobox__expandIcon {
-    position: static !important;
-    margin-inline-start: 4px;
-    pointer-events: auto;
-    display: inline-flex !important;
-    cursor: pointer;
-    color: #7a849a;
+  position: absolute !important;
+  inset-inline-end: 8px;
+  top: 50%;
+  transform: translateY(-50%);
+  margin: 0;
+  pointer-events: auto;
+  display: inline-flex !important;
+  cursor: pointer;
+  color: #7a849a;
 }
 
-.w11-combobox:focus-within .fui-Combobox__expandIcon {
-    color: #1e5eff;
-}
+.w11-combobox:focus-within .fui-Combobox__expandIcon { color: #1e5eff; }
+.w11-combobox .fui-Combobox__input { color: inherit; opacity: 1; }
 
-.w11-combobox .fui-Combobox__input {
-    color: inherit;
-    opacity: 1;
-}
-
+/* Listbox */
 .fui-Listbox {
-    border: 1px solid #ececf3 !important;
-    background: #fff !important;
-    border-radius: 12px !important;
-    box-shadow: 0 18px 36px rgba(0, 0, 0, .14) !important;
-    padding: 6px !important;
+  border: 1px solid #ececf3 !important;
+  background: #fff !important;
+  border-radius: 12px !important;
+  box-shadow: 0 18px 36px rgba(0, 0, 0, .14) !important;
+  padding: 6px !important;
 }
 
 .fui-Option {
-    border-radius: 8px !important;
-    padding: 8px 10px !important;
-    margin: 2px 0 !important;
-    transition: background-color .12s ease, color .12s ease, box-shadow .12s ease;
+  border-radius: 8px !important;
+  padding: 8px 10px !important;
+  margin: 2px 0 !important;
+  transition: background-color .12s ease, color .12s ease, box-shadow .12s ease;
 }
 
-.fui-Option:hover {
-    background: #f7f9ff !important;
-}
+.fui-Option:hover { background: #f7f9ff !important; }
 
 .fui-Option[aria-selected="true"],
 .fui-Option[aria-checked="true"] {
-    background: #eef2ff !important;
-    color: #2c3a8c !important;
-    outline: none !important;
-    box-shadow: 0 0 0 3px rgba(102, 132, 255, .18);
+  background: #eef2ff !important;
+  color: #2c3a8c !important;
+  outline: none !important;
+  box-shadow: 0 0 0 3px rgba(102, 132, 255, .18);
 }
 
+/* ============== Table ============== */
 .w11-tableWrap {
-    overflow: auto;
+  width: 100%;
+  overflow-x: auto;   /* only scroll horizontally if table needs it */
+  overflow-y: visible;
 }
 
-.fui-TableRow:hover {
-    background: rgba(0, 0, 0, 0.02);
+/* Make the table honor the container’s width instead of its intrinsic content width */
+.w11-tableWrap table,
+.w11-tableWrap .fui-Table {
+  width: 100%;
+  table-layout: fixed; /* prevents long content from forcing wider table */
+  border-collapse: separate; /* safer with shadows */
 }
 
+.fui-TableRow:hover { background: rgba(0, 0, 0, 0.02); }
+
+/* Prevent long words/URLs/tags from pushing width */
+.w11-tableWrap td,
+.w11-tableWrap th,
+.fui-TableCell,
+.fui-TableHeaderCell {
+  word-break: break-word;
+  overflow-wrap: anywhere;
+}
+
+/* ============== Pager ============== */
 .w11-pager {
-    margin-top: 12px;
-    display: flex;
-    gap: 10px;
-    justify-content: flex-end;
+  margin-top: 12px;
+  display: flex;
+  gap: 10px;
+  justify-content: flex-end;
+  min-width: 0;
 }
 
+/* ============== Buttons ============== */
 .w11-pageShell .fui-Button {
-    height: 42px !important;
-    border-radius: 12px !important;
-    padding: 0 18px !important;
-    font-weight: 600 !important;
-    border: 1px solid transparent !important;
-    box-shadow: 0 8px 18px rgba(27, 64, 218, .20);
-    transition: transform .06s ease, box-shadow .15s ease, filter .15s ease,
-        background-color .15s ease, border-color .15s ease, color .15s ease;
+  height: 42px !important;
+  border-radius: 12px !important;
+  padding: 0 18px !important;
+  font-weight: 600 !important;
+  border: 1px solid transparent !important;
+  box-shadow: 0 8px 18px rgba(27, 64, 218, .20);
+  transition: transform .06s ease, box-shadow .15s ease, filter .15s ease,
+    background-color .15s ease, border-color .15s ease, color .15s ease;
 }
 
 .w11-pageShell .fui-Button:hover {
-    transform: translateY(-1px);
-    box-shadow: 0 14px 28px rgba(27, 64, 218, .25);
-    filter: brightness(1.02);
+  transform: translateY(-1px);
+  box-shadow: 0 14px 28px rgba(27, 64, 218, .25);
+  filter: brightness(1.02);
 }
 
 .w11-pageShell .fui-Button:active {
-    transform: translateY(0);
-    box-shadow: 0 6px 14px rgba(27, 64, 218, .18);
+  transform: translateY(0);
+  box-shadow: 0 6px 14px rgba(27, 64, 218, .18);
 }
 
 .w11-pageShell .fui-Button:focus-visible {
-    outline: none;
-    border-color: #b7c7ff !important;
-    box-shadow:
-        0 0 0 3px rgba(102, 132, 255, .28),
-        0 10px 24px rgba(35, 76, 219, .16);
+  outline: none;
+  border-color: #b7c7ff !important;
+  box-shadow:
+    0 0 0 3px rgba(102, 132, 255, .28),
+    0 10px 24px rgba(35, 76, 219, .16);
 }
 
 .w11-btnSecondary {
-    background: #fff !important;
-    color: #111827 !important;
-    border: 1px solid #e6e6f2 !important;
-    box-shadow: 0 6px 14px rgba(0, 0, 0, .06);
+  background: #fff !important;
+  color: #111827 !important;
+  border: 1px solid #e6e6f2 !important;
+  box-shadow: 0 6px 14px rgba(0, 0, 0, .06);
 }
 
 .w11-btnSecondary:hover {
-    transform: translateY(-1px);
-    background: #f7f9ff !important;
-    border-color: #cfd8ff !important;
-    box-shadow: 0 12px 22px rgba(35, 76, 219, .14);
+  transform: translateY(-1px);
+  background: #f7f9ff !important;
+  border-color: #cfd8ff !important;
+  box-shadow: 0 12px 22px rgba(35, 76, 219, .14);
 }
 
-.w11-btnSecondary:active {
-    box-shadow: 0 4px 12px rgba(0, 0, 0, .08);
-}
+.w11-btnSecondary:active { box-shadow: 0 4px 12px rgba(0, 0, 0, .08); }
 
+/* ============== Actions Row ============== */
 .w11-actions {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    flex: 1 1 auto;
-    margin-left: 12px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex: 1 1 auto;
+  margin-left: 12px;
+  min-width: 0;
 }
 
-.w11-actions .w11-btnSecondary {
-    margin-left: auto;
-}
+.w11-actions .w11-btnSecondary { margin-left: auto; }

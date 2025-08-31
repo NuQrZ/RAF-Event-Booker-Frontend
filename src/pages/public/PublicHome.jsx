@@ -85,7 +85,7 @@ export default function PublicHome() {
     (async () => {
       try {
         setCatsLoading(true); setCatsError('');
-        const k1 = await api(`/ems/categories`);
+        const k1 = await api(`/public/categories`);
         const list1 = normItems(k1?.data)
           .map(c => ({
             id: String(c.categoryID ?? c.id),

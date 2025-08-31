@@ -1,5 +1,116 @@
+.container {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.gradient {
+  background: linear-gradient(
+    135deg,
+    rgba(33, 150, 243, 0.18),
+    rgba(156, 39, 176, 0.18),
+    rgba(255, 255, 255, 0.72)
+  );
+  background-size: 200% 200%;
+  animation: gradientShift 12s ease infinite;
+}
+@keyframes gradientShift {
+  0% { background-position: 0% 50% }
+  50% { background-position: 100% 50% }
+  100% { background-position: 0% 50% }
+}
+
+.na-shell {
+  min-height: 60vh;
+  display: grid;
+  place-items: center;
+  padding: 24px 20px;
+  background: transparent;
+}
+
+.na-card {
+  width: min(680px, 92vw);
+  background: var(--colorNeutralBackground1, #ffffff);
+  border: 1px solid var(--colorNeutralStroke2, #ececf3);
+  border-radius: 16px;
+  padding: 22px;
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.06);
+  transition: box-shadow 180ms ease, transform 180ms ease, border-color 180ms ease;
+}
+
+.na-card:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 16px 40px rgba(39, 39, 39, 0.08),
+    0 0 0 4px rgba(30, 94, 255, 0.06);
+  border-color: var(--colorNeutralStroke1, #e3e3ef);
+}
+
+.na-icon {
+  width: 56px;
+  height: 56px;
+  display: grid;
+  place-items: center;
+  border-radius: 8px;
+  background: linear-gradient(180deg, #ffffff 0%, #f7f9ff 100%);
+  border: 1px solid var(--colorNeutralStroke2, #ececf3);
+  box-shadow: 0 8px 24px rgba(30, 94, 255, 0.08);
+  margin-bottom: 12px;
+}
+
+.na-icon svg {
+  width: 28px;
+  height: 28px;
+  color: var(--colorPaletteRedForeground1, #b42318);
+}
+
+.na-head {
+  display: grid;
+  gap: 6px;
+  margin-bottom: 14px;
+}
+
+.na-title {
+  margin: 0;
+  letter-spacing: 0.2px;
+}
+
+.na-subtitle {
+  color: var(--colorNeutralForeground3, #667085);
+}
+
+.na-actions {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-top: 8px;
+}
+
+.na-actions .fui-Button {
+  border-radius: 16px;
+  padding: 8px 18px;
+  font-weight: 600;
+  transition: all 0.2s ease-in-out;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.04);
+}
+
+.na-actions .fui-Button:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08),
+    0 0 0 3px rgba(30, 94, 255, 0.25);
+}
+
+.na-actions .fui-Button[appearance="secondary"] {
+  background: #f8f9fb;
+  border: 1px solid #d0d7e3;
+}
+
+.na-actions .fui-Button[appearance="secondary"]:hover {
+  background: #ffffff;
+  border-color: #a8b4c8;
+}
+
 .noAccess {
-    padding-top: 8px;
-    color: crimson;
-    font-size: large !important;
+  padding-top: 8px;
+  color: var(--colorPaletteRedForeground1, crimson);
+  font-size: 1rem;
 }

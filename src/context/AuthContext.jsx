@@ -24,7 +24,7 @@ export function AuthProvider({ children }) {
   const logout = () => {
     localStorage.clear()
     setProfile(null)
-    window.location.href = '/login'
+    window.location.href = '/public/events'
   }
 
   const value = useMemo(() => ({ profile, login, logout }), [profile])
